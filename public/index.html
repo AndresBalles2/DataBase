@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farmacia Salud Plus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-blue-600 text-white p-6 flex justify-between items-center">
+      <span class="text-2xl font-bold">Farmacia Salud Plus</span>
+      <nav>
+        <a href="./login.html" id="loginLink" class="px-6 text-lg hover:underline">Login</a>
+        <a href="./register.html" id="registerLink" class="px-6 text-lg hover:underline">Register</a>
+        <a href="#" id="logoutLink" onclick="logout()" class="px-6 text-lg hover:underline hidden">Cerrar Sesión</a>
+      </nav>
+    </header>
+
+    <!-- Slider -->
+    <div class="relative w-full overflow-hidden h-96">
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./img/fondo.jpg');"></div>
+    </div>
+
+    <!-- Sección de Productos -->
+    <main class="p-12">
+      <h2 class="text-4xl font-bold text-center text-blue-600">Nuestros Productos</h2>
+      <div class="grid md:grid-cols-3 gap-12 mt-12">
+        <div class="bg-white p-6 shadow-xl rounded-lg transition transform hover:scale-105 hover:shadow-2xl">
+          <img src="./img/vitamina.webp" class="w-full rounded-md" />
+          <h3 class="text-2xl font-bold mt-4">Medicamentos</h3>
+          <p class="text-gray-600 text-lg">Medicamentos de alta calidad para el cuidado de tu salud.</p>
+        </div>
+        <div class="bg-white p-6 shadow-xl rounded-lg transition transform hover:scale-105 hover:shadow-2xl">
+          <img src="./img/vitamina.webp" class="w-full rounded-md" />
+          <h3 class="text-2xl font-bold mt-4">Suplementos</h3>
+          <p class="text-gray-600 text-lg">Vitaminas y suplementos para mejorar tu bienestar.</p>
+        </div>
+        <div class="bg-white p-6 shadow-xl rounded-lg transition transform hover:scale-105 hover:shadow-2xl">
+          <img src="./img/vitamina.webp" class="w-full rounded-md" />
+          <h3 class="text-2xl font-bold mt-4">Cuidado Personal</h3>
+          <p class="text-gray-600 text-lg">Productos de higiene y cuidado personal de alta calidad.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- SECCIÓN DE SERVICIOS -->
+    <section class="bg-gray-200 p-12">
+        <h2 class="text-4xl font-bold text-center text-blue-600">Nuestros Servicios</h2>
+        <div class="grid md:grid-cols-2 gap-12 mt-12">
+          <a href="./store.html" class="block bg-white p-6 shadow-xl rounded-lg text-center transition transform hover:scale-105 hover:shadow-2xl">
+            <img src="./img/service.jpg" class="w-96 mx-auto rounded-md" />
+            <h3 class="text-2xl font-bold mt-4">Tienda Virtual</h3>
+            <p class="text-gray-600 text-lg">Compra tus productos desde la comodidad de tu hogar con envíos rápidos.</p>
+          </a>
+          <a href="./inventario.html" class="block bg-white p-6 shadow-xl rounded-lg text-center transition transform hover:scale-105 hover:shadow-2xl">
+            <img src="./img/service.jpg" class="w-96 mx-auto rounded-md" />
+            <h3 class="text-2xl font-bold mt-4">Servicios de Inventario</h3>
+            <p class="text-gray-600 text-lg">Gestión eficiente del stock para asegurar la disponibilidad de productos.</p>
+          </a>
+        </div>
+      </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-700 text-white text-center p-10 mt-12">
+      <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="text-xl font-bold">Contacto</h3>
+          <p class="text-gray-200">Tel: +57 300 123 4567</p>
+          <p class="text-gray-200">Email: contacto@farmaciasaludplus.com</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold">Síguenos</h3>
+          <div class="flex justify-center space-x-4">
+            <a href="#" class="text-gray-200 hover:text-white">Facebook</a>
+            <a href="#" class="text-gray-200 hover:text-white">Instagram</a>
+            <a href="#" class="text-gray-200 hover:text-white">Twitter</a>
+          </div>
+        </div>
+      </div>
+      <p class="text-gray-300 mt-6">&copy; 2025 Farmacia Salud Plus. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const nombreUsuario = localStorage.getItem("nombreUsuario");
+
+        if (nombreUsuario) {
+          document.getElementById("loginLink").classList.add("hidden");
+          document.getElementById("registerLink").classList.add("hidden");
+          document.getElementById("logoutLink").classList.remove("hidden");
+          document.getElementById("logoutLink").textContent = `Cerrar Sesión`;
+        }
+      });
+
+      function logout() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("nombreUsuario");
+        window.location.reload();
+      }
+    </script>
+  </body>
+</html>

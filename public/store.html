@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda - Farmacia Salud Plus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-blue-600 text-white p-6 flex justify-between items-center">
+        <a href="./index.html"><span class="text-2xl font-bold">Farmacia Salud Plus</span></a>
+    </header>
+
+    <main class="p-12">
+        <h2 class="text-4xl font-bold text-center text-blue-600">Tienda</h2>
+
+        <!-- Formulario para agregar productos -->
+        <div class="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto mt-8">
+            <h3 class="text-2xl font-bold mb-4">Agregar Producto</h3>
+            <form id="productForm">
+                <input type="text" id="nombre" placeholder="Nombre del producto" class="w-full p-2 border rounded-md mb-2" required>
+                <input type="text" id="descripcion" placeholder="Descripción" class="w-full p-2 border rounded-md mb-2" required>
+                <input type="number" id="precio" placeholder="Precio" class="w-full p-2 border rounded-md mb-2" required>
+                <input type="number" id="stock" placeholder="Stock" class="w-full p-2 border rounded-md mb-2" required>
+                <input type="text" id="imagen" placeholder="URL de la imagen (opcional)" class="w-full p-2 border rounded-md mb-2">
+                <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700">Guardar Producto</button>
+            </form>
+        </div>
+
+        <!-- Sección de productos -->
+        <div id="productosContainer" class="grid md:grid-cols-3 gap-12 mt-8"></div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            try {
+                const response = await fetch("http://localhost:5100/productos/getAll");
+                const productos = await response.json();
+                
+                const contenedor = document.getElementById("productosContainer");
+                productos.forEach(producto => {
+                    const card = document.createElement("div");
+                    card.className = "bg-white p-6 shadow-xl rounded-lg text-center";
+                    card.innerHTML = `
+                        <img src="${producto.imagen || './img/default.jpg'}" class="w-full h-40 object-cover rounded-md" />
+                        <h3 class="text-2xl font-bold mt-4">${producto.nombre}</h3>
+                        <p class="text-gray-600 text-lg">${producto.descripcion}</p>
+                        <p class="text-xl font-semibold text-green-600 mt-2">\$${producto.precio}</p>
+                        <p class="text-gray-500 text-sm">Stock: ${producto.stock}</p>
+                        <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">Comprar</button>
+                    `;
+                    contenedor.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Error cargando los productos:", error);
+            }
+
+            document.getElementById("productForm").addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                const nuevoProducto = {
+                    nombre: document.getElementById("nombre").value,
+                    descripcion: document.getElementById("descripcion").value,
+                    precio: parseFloat(document.getElementById("precio").value),
+                    stock: parseInt(document.getElementById("stock").value),
+                    imagen: document.getElementById("imagen").value || "./img/default.jpg"
+                };
+
+                try {
+                    const response = await fetch("http://localhost:5100/products/create", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(nuevoProducto)
+                    });
+
+                    if (response.ok) {
+                        alert("Producto agregado con éxito");
+                        location.reload();
+                    } else {
+                        alert("Error al agregar el producto");
+                    }
+                } catch (error) {
+                    console.error("Error al agregar producto:", error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
