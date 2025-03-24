@@ -1,38 +1,37 @@
 import mongoose from "mongoose";
-import Product from "../schemas/product.js";
+import Usuario from "../schemas/user.js";
 
-class productModel {
+class usuarioModel {
     // Crear un producto
-    async create(product) {
-        return await Product.create(product);
+    async create(usuario) {
+        return await Usuario.create(usuario);
     }
 
-    // Actualizar un producto por ID
-    async update(id, product) {
-        return await Product.findOneAndUpdate(
-            { _id: new mongoose.Types.ObjectId(id) },product,{ new: true }
+    // Actualizar un Usuarioo por ID
+    async update(id, Usuario) {
+        return await Usuario.findOneAndUpdate({ _id: new mongoose.Types.ObjectId(id) },Usuario,{ new: true }
         );
     }
 
-    // Eliminar un producto por ID
+    // Eliminar un Usuarioo por ID
     async delete(id) {
-        return await Product.findOneAndDelete({ _id: new mongoose.Types.ObjectId(id) });
+        return await Usuario.findOneAndDelete({ _id: new mongoose.Types.ObjectId(id) });
     }
 
-    // Obtener todos los productos
+    // Obtener todos los Usuarioos
     async getAll() {
-        return await Product.find();
+        return await Usuario.find();
     }
 
-    // Obtener un producto por ID
+    // Obtener un Usuarioo por ID
     async getOneById(id) {
-        return await Product.findById(id);
+        return await Usuario.findById(id);
     }
 
-    // Obtener un producto por cualquier criterio (ejemplo: nombre, categoría, precio)
-    async getOne(filtro) {
-        return await Product.findOne(filtro);
+    // Obtener un Usuarioo por cualquier criterio (ejemplo: nombre, categoría, precio)
+    async getOne(id) {
+        return await Usuario.findOne(id);
     }
 }
 
-export default new productModel();
+export default new usuarioModel();
