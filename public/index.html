@@ -5,81 +5,204 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Farmacia Salud Plus</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="./img/favicon.png">
   </head>
-  <body class="bg-gray-100">
+  <body class="h-screen bg-gradient-to-r from-gray-100 to-gray-400 font-sans">
     <!-- Header -->
-    <header class="bg-blue-600 text-white p-6 flex justify-between items-center">
-      <span class="text-2xl font-bold">Farmacia Salud Plus</span>
-      <nav>
-        <a href="./login.html" id="loginLink" class="px-6 text-lg hover:underline">Login</a>
-        <a href="./register.html" id="registerLink" class="px-6 text-lg hover:underline">Register</a>
-        <a href="#" id="logoutLink" onclick="logout()" class="px-6 text-lg hover:underline hidden">Cerrar Sesión</a>
+    <header class="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6 flex justify-between items-center shadow-2xl rounded-2xl mx-6 mt-4 border border-blue-400/50">
+      <span class="text-3xl font-bold drop-shadow-lg tracking-wide hover:text-gray-200 transition duration-300 ease-in-out">
+        Farmacia Salud Plus
+      </span>
+      
+      <nav class="flex space-x-4">
+        <a href="./login.html" id="loginLink" class="relative px-6 py-2 text-lg font-medium group rounded-full hover:bg-white hover:text-blue-600 transition-all duration-500 ease-in-out">
+          <span class="relative z-10">Login</span>
+        </a>
+        <a href="./register.html" id="registerLink" class="relative px-6 py-2 text-lg font-medium group rounded-full hover:bg-white hover:text-blue-600 transition-all duration-500 ease-in-out">
+          <span class="relative z-10">Register</span>
+        </a>
+        <a href="#" id="logoutLink" onclick="logout()" class="relative px-6 py-2 text-lg font-medium group hidden rounded-full hover:bg-white hover:text-blue-600 transition-all duration-500 ease-in-out">
+          <span class="relative z-10">Cerrar Sesión</span>
+        </a>
       </nav>
     </header>
+    
 
-    <!-- Slider -->
-    <div class="relative w-full overflow-hidden h-96">
-      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./img/fondo.jpg');"></div>
+<!-- SLIDER MEJORADO -->
+<div class="relative w-full max-w-7xl mx-auto overflow-hidden h-96 mt-8 rounded-xl shadow-2xl">
+  <!-- Contenedor de imágenes -->
+  <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-in-out rounded-xl" id="slider">
+  </div>
+
+  <!-- Botones de navegación con efecto más elegante -->
+  <button id="prev" class="absolute left-6 top-1/2 transform -translate-y-1/2 bg-black/30 text-white p-3 rounded-full hover:bg-black/50 transition-all duration-300 shadow-lg">❮</button>
+  <button id="next" class="absolute right-6 top-1/2 transform -translate-y-1/2 bg-black/30 text-white p-3 rounded-full hover:bg-black/50 transition-all duration-300 shadow-lg">❯</button>
+
+  <!-- Indicadores mejorados -->
+  <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3" id="indicators">
+    <div class="w-4 h-4 bg-white rounded-full opacity-50 hover:opacity-100 cursor-pointer transition-all duration-300"></div>
+    <div class="w-4 h-4 bg-white rounded-full opacity-50 hover:opacity-100 cursor-pointer transition-all duration-300"></div>
+    <div class="w-4 h-4 bg-white rounded-full opacity-50 hover:opacity-100 cursor-pointer transition-all duration-300"></div>
+    <div class="w-4 h-4 bg-white rounded-full opacity-50 hover:opacity-100 cursor-pointer transition-all duration-300"></div>
+  </div>
+</div>
+
+    <script>
+      const images = [
+        "./img/fondo.png",
+        "./img/fondo1.png",
+        "./img/fondo2.png",
+        "./img/fondo3.png"
+      ];
+      
+      let currentIndex = 0;
+      const slider = document.getElementById("slider");
+      const indicators = document.getElementById("indicators");
+    
+      function updateSlider() {
+        slider.style.backgroundImage = `url('${images[currentIndex]}')`;
+        indicators.innerHTML = images.map((_, i) => 
+          `<div class="w-3 h-3 rounded-full ${i === currentIndex ? 'bg-white' : 'bg-gray-500'}"></div>`
+        ).join("");
+      }
+    
+      document.getElementById("next").addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateSlider();
+      });
+    
+      document.getElementById("prev").addEventListener("click", () => {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateSlider();
+      });
+    
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateSlider();
+      }, 5000);
+    
+      updateSlider();
+    </script>
+      
+
+<!-- Contenedor de Productos -->
+<div class="p-12 bg-gradient-to-r from-gray-100 to-gray-400 flex justify-center">
+  <div class="bg-white p-16 rounded-2xl shadow-2xl w-full max-w-7xl min-h-[500px]">
+    <h2 class="text-4xl font-bold text-center text-blue-600 mb-8">Nuestros Productos</h2>
+    <div class="grid md:grid-cols-3 gap-12">
+      <!-- Tarjeta de Producto -->
+      <div class="bg-white p-6 shadow-lg rounded-lg transition transform hover:-translate-y-2 hover:shadow-2xl hover:ring-2 hover:ring-blue-400 cursor-pointer">
+        <div class="overflow-hidden rounded-md">
+          <img src="./img/vitamina.webp" class="w-full rounded-md transition-transform duration-300 hover:scale-105" />
+        </div>
+        <h3 class="text-2xl font-bold mt-4 text-gray-800">Medicamentos</h3>
+        <p class="text-gray-600 text-lg">Medicamentos de alta calidad para el cuidado de tu salud.</p>
+        <button class="mt-4 px-6 py-2 bg-blue-500 text-white rounded-full font-medium transition-all duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg hover:scale-105">Ver Más</button>
+      </div>     
+
+      <div class="bg-white p-6 shadow-lg rounded-lg transition transform hover:-translate-y-2 hover:shadow-2xl hover:ring-2 hover:ring-blue-400 cursor-pointer">
+        <div class="overflow-hidden rounded-md">
+          <img src="./img/vitamina.webp" class="w-full rounded-md transition-transform duration-300 hover:scale-105" />
+        </div>
+        <h3 class="text-2xl font-bold mt-4 text-gray-800">Suplementos</h3>
+        <p class="text-gray-600 text-lg">Vitaminas y suplementos para mejorar tu bienestar.</p>
+        <button class="mt-4 px-6 py-2 bg-blue-500 text-white rounded-full font-medium transition-all duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg hover:scale-105">Ver Más</button>
+      </div>
+
+      <div class="bg-white p-6 shadow-lg rounded-lg transition transform hover:-translate-y-2 hover:shadow-2xl hover:ring-2 hover:ring-blue-400 cursor-pointer">
+        <div class="overflow-hidden rounded-md">
+          <img src="./img/vitamina.webp" class="w-full rounded-md transition-transform duration-300 hover:scale-105" />
+        </div>
+        <h3 class="text-2xl font-bold mt-4 text-gray-800">Cuidado Personal</h3>
+        <p class="text-gray-600 text-lg">Productos de higiene y cuidado personal de alta calidad.</p>
+        <button class="mt-4 px-6 py-2 bg-blue-500 text-white rounded-full font-medium transition-all duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg hover:scale-105">Ver Más</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Contenedor de Servicios -->
+<div class="p-12 bg-gradient-to-r from-gray-100 to-gray-400 flex justify-center">
+  <div class="bg-white p-16 rounded-2xl shadow-2xl w-full max-w-7xl min-h-[500px]">
+    <h2 class="text-4xl font-bold text-center text-blue-600">Nuestros Servicios</h2>
+    <div class="grid md:grid-cols-2 gap-12 mt-12">
+      
+      <!-- Tarjeta 1 -->
+      <a href="./store.html" class="block bg-white p-6 shadow-xl rounded-lg text-center transition transform hover:scale-105 hover:shadow-2xl hover:bg-blue-50">
+        <div class="flex justify-center">
+          <img src="./img/service.jpg" class="w-full max-w-md mx-auto rounded-md" />
+        </div>
+        <h3 class="text-2xl font-bold mt-4 flex items-center justify-center gap-2">
+          🛒 Tienda Virtual
+        </h3>
+        <p class="text-gray-600 text-lg">Compra tus productos desde la comodidad de tu hogar con envíos rápidos.</p>
+      </a>
+
+      <!-- Tarjeta 2 -->
+      <a href="./inventario.html" class="block bg-white p-6 shadow-xl rounded-lg text-center transition transform hover:scale-105 hover:shadow-2xl hover:bg-blue-50">
+        <div class="flex justify-center">
+          <img src="./img/service.jpg" class="w-full max-w-md mx-auto rounded-md" />
+        </div>
+        <h3 class="text-2xl font-bold mt-4 flex items-center justify-center gap-2">
+          📦 Servicios de Inventario
+        </h3>
+        <p class="text-gray-600 text-lg">Gestión eficiente del stock para asegurar la disponibilidad de productos.</p>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Contenedor del Footer -->
+<div class="p-12 bg-gradient-to-r from-gray-100 to-gray-400 flex justify-center">
+  <footer class="bg-gradient-to-r from-blue-600 to-blue-700 text-white text-center p-20 w-full max-w-8xl rounded-2xl shadow-2xl">
+    <!-- Primera Fila -->
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+      
+      <!-- Sección de Contacto -->
+      <div>
+        <h3 class="text-xl font-bold">📞 Contacto</h3>
+        <p class="text-gray-200">Tel: +57 300 123 4567</p>
+        <p class="text-gray-200">Email: contacto@farmaciasaludplus.com</p>
+      </div>
+
+      <!-- Redes Sociales -->
+      <div>
+        <h3 class="text-xl font-bold">🌐 Síguenos</h3>
+        <div class="flex justify-center space-x-6 mt-3">
+          <a href="#" class="text-gray-300 hover:text-white transition text-3xl">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a href="#" class="text-gray-300 hover:text-white transition text-3xl">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="text-gray-300 hover:text-white transition text-3xl">
+            <i class="fab fa-twitter"></i>
+          </a>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Sección de Productos -->
-    <main class="p-12">
-      <h2 class="text-4xl font-bold text-center text-blue-600">Nuestros Productos</h2>
-      <div class="grid md:grid-cols-3 gap-12 mt-12">
-        <div class="bg-white p-6 shadow-xl rounded-lg transition transform hover:scale-105 hover:shadow-2xl">
-          <img src="./img/vitamina.webp" class="w-full rounded-md" />
-          <h3 class="text-2xl font-bold mt-4">Medicamentos</h3>
-          <p class="text-gray-600 text-lg">Medicamentos de alta calidad para el cuidado de tu salud.</p>
-        </div>
-        <div class="bg-white p-6 shadow-xl rounded-lg transition transform hover:scale-105 hover:shadow-2xl">
-          <img src="./img/vitamina.webp" class="w-full rounded-md" />
-          <h3 class="text-2xl font-bold mt-4">Suplementos</h3>
-          <p class="text-gray-600 text-lg">Vitaminas y suplementos para mejorar tu bienestar.</p>
-        </div>
-        <div class="bg-white p-6 shadow-xl rounded-lg transition transform hover:scale-105 hover:shadow-2xl">
-          <img src="./img/vitamina.webp" class="w-full rounded-md" />
-          <h3 class="text-2xl font-bold mt-4">Cuidado Personal</h3>
-          <p class="text-gray-600 text-lg">Productos de higiene y cuidado personal de alta calidad.</p>
-        </div>
-      </div>
-    </main>
+    <!-- Línea Divisoria -->
+    <div class="border-t border-gray-400/50 mt-8"></div>
 
-    <!-- SECCIÓN DE SERVICIOS -->
-    <section class="bg-gray-200 p-12">
-        <h2 class="text-4xl font-bold text-center text-blue-600">Nuestros Servicios</h2>
-        <div class="grid md:grid-cols-2 gap-12 mt-12">
-          <a href="./store.html" class="block bg-white p-6 shadow-xl rounded-lg text-center transition transform hover:scale-105 hover:shadow-2xl">
-            <img src="./img/service.jpg" class="w-96 mx-auto rounded-md" />
-            <h3 class="text-2xl font-bold mt-4">Tienda Virtual</h3>
-            <p class="text-gray-600 text-lg">Compra tus productos desde la comodidad de tu hogar con envíos rápidos.</p>
-          </a>
-          <a href="./inventario.html" class="block bg-white p-6 shadow-xl rounded-lg text-center transition transform hover:scale-105 hover:shadow-2xl">
-            <img src="./img/service.jpg" class="w-96 mx-auto rounded-md" />
-            <h3 class="text-2xl font-bold mt-4">Servicios de Inventario</h3>
-            <p class="text-gray-600 text-lg">Gestión eficiente del stock para asegurar la disponibilidad de productos.</p>
-          </a>
-        </div>
-      </section>
+    <!-- Segunda Fila -->
+    <div class="mt-6 flex flex-col md:flex-row justify-center gap-8 text-gray-300">
+      <a href="#" class="hover:text-white transition">Términos y Condiciones</a>
+      <a href="#" class="hover:text-white transition">Política de Privacidad</a>
+    </div>
 
-    <!-- Footer -->
-    <footer class="bg-blue-700 text-white text-center p-10 mt-12">
-      <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
-        <div>
-          <h3 class="text-xl font-bold">Contacto</h3>
-          <p class="text-gray-200">Tel: +57 300 123 4567</p>
-          <p class="text-gray-200">Email: contacto@farmaciasaludplus.com</p>
-        </div>
-        <div>
-          <h3 class="text-xl font-bold">Síguenos</h3>
-          <div class="flex justify-center space-x-4">
-            <a href="#" class="text-gray-200 hover:text-white">Facebook</a>
-            <a href="#" class="text-gray-200 hover:text-white">Instagram</a>
-            <a href="#" class="text-gray-200 hover:text-white">Twitter</a>
-          </div>
-        </div>
-      </div>
-      <p class="text-gray-300 mt-6">&copy; 2025 Farmacia Salud Plus. Todos los derechos reservados.</p>
-    </footer>
+    <p class="text-gray-300 mt-8">&copy; 2025 Farmacia Salud Plus. Todos los derechos reservados.</p>
+    
+  </footer>
+</div>
+
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
@@ -97,6 +220,16 @@
         localStorage.removeItem("token");
         localStorage.removeItem("nombreUsuario");
         window.location.reload();
+      }
+
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['DM Sans', 'sans-serif'],
+            },
+          },
+        },
       }
     </script>
   </body>

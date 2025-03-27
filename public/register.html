@@ -6,40 +6,46 @@
     <title>Registro - Farmacia Salud Plus</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center h-screen">
-    <div class="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">Registro</h2>
-        <form id="registerForm">
-            <div class="mb-4">
-                <label class="block text-gray-700">Nombre</label>
-                <input type="text" id="nombre" class="w-full p-2 border border-gray-300 rounded" required>
+<body class="h-screen flex items-center justify-center bg-gradient-to-r from-gray-100 to-gray-400">
+    <div class="bg-white p-8 rounded-lg shadow-2xl w-96 border border-gray-200 backdrop-blur-md bg-opacity-80">
+        <h2 class="text-3xl font-bold text-center text-blue-600 mb-6">Registro</h2>
+        <form id="registerForm" class="space-y-4">
+            <div class="relative">
+                <input type="text" id="nombre" class="peer w-full p-4 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none text-lg placeholder-transparent" placeholder=" " required>
+                <label for="nombre" class="absolute left-3 top-3 text-gray-500 text-lg transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-lg peer-placeholder-shown:text-gray-400 peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-600 peer-valid:top-1 peer-valid:text-sm peer-valid:text-blue-600 bg-white px-1">Nombre</label>
+            </div>            
+            <div class="relative">
+                <input type="text" id="apellido" class="peer w-full p-4 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none text-lg placeholder-transparent" placeholder=" " required>
+                <label for="apellido" class="absolute left-3 top-3 text-gray-500 text-lg transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-lg peer-placeholder-shown:text-gray-400 peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-600 peer-valid:top-1 peer-valid:text-sm peer-valid:text-blue-600 bg-white px-1">Apellido</label>
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700">Apellido</label>
-                <input type="text" id="apellido" class="w-full p-2 border border-gray-300 rounded" required>
+            
+            <div class="relative">
+                <input type="email" id="email" class="peer w-full p-4 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none text-lg placeholder-transparent" placeholder=" " required>
+                <label for="email" class="absolute left-3 top-3 text-gray-500 text-lg transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-lg peer-placeholder-shown:text-gray-400 peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-600 peer-valid:top-1 peer-valid:text-sm peer-valid:text-blue-600 bg-white px-1">Correo Electrónico</label>
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700">Correo Electrónico</label>
-                <input type="email" id="email" class="w-full p-2 border border-gray-300 rounded" required>
+            
+            <div class="relative">
+                <input type="text" id="telefono" class="peer w-full p-4 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none text-lg placeholder-transparent" placeholder=" " required>
+                <label for="telefono" class="absolute left-3 top-3 text-gray-500 text-lg transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-lg peer-placeholder-shown:text-gray-400 peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-600 peer-valid:top-1 peer-valid:text-sm peer-valid:text-blue-600 bg-white px-1">Teléfono</label>
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700">Teléfono</label>
-                <input type="text" id="telefono" class="w-full p-2 border border-gray-300 rounded" required>
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700">Tipo</label>
-                <select id="tipo" class="w-full p-2 border border-gray-300 rounded" required>
-                    <option value="cliente">Cliente</option>
-                    <option value="admin">Administrador</option>
+            
+            <div class="relative">
+                <select id="tipo" class="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none text-lg bg-white appearance-none cursor-pointer" required>
+                    <option value="" disabled selected hidden>Selecciona un tipo</option>
+                    <option value="cliente" class="text-gray-600">Cliente</option>
+                    <option value="admin" class="text-gray-600">Administrador</option>
                 </select>
+                <label for="tipo" class="absolute left-3 top-[-10px] text-sm text-blue-600 bg-white px-1">Tipo</label>
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700">Contraseña</label>
-                <input type="password" id="clave" class="w-full p-2 border border-gray-300 rounded" required>
+            
+            <div class="relative">
+                <input type="password" id="clave" class="peer w-full p-4 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none text-lg placeholder-transparent" placeholder=" " required>
+                <label for="clave" class="absolute left-3 top-3 text-gray-500 text-lg transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-lg peer-placeholder-shown:text-gray-400 peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-600 peer-valid:top-1 peer-valid:text-sm peer-valid:text-blue-600 bg-white px-1">Contraseña</label>
             </div>
-            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Registrarse</button>
+            
+            <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 text-lg transition-all">Registrarse</button>
         </form>
-        <p class="text-center text-gray-600 mt-4">¿Ya tienes una cuenta? <a href="login.html" class="text-blue-600 hover:underline">Inicia sesión</a></p>
+        <p class="text-center text-gray-600 mt-4">¿Ya tienes una cuenta? <a href="login.html" class="text-blue-600 font-semibold">Inicia sesión</a></p>
     </div>
 
     <script>

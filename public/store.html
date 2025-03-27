@@ -5,27 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda - Farmacia Salud Plus</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="./img/favicon.png">
 </head>
-<body class="bg-gray-100">
-    <header class="bg-blue-600 text-white p-6 flex justify-between items-center">
-        <a href="./index.html"><span class="text-2xl font-bold">Farmacia Salud Plus</span></a>
+<body class="bg-gradient-to-r from-gray-100 to-gray-400 font-sans">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 flex justify-center shadow-2xl rounded-2xl mx-6 mt-4 border border-blue-400/50">
+        <a href="./index.html" class="text-3xl font-bold drop-shadow-lg tracking-wide hover:text-gray-200 transition duration-300 ease-in-out">
+            Farmacia Salud Plus
+        </a>
     </header>
 
     <main class="p-12">
         <h2 class="text-4xl font-bold text-center text-blue-600">Tienda</h2>
 
         <!-- Formulario para agregar productos -->
-        <div class="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto mt-8">
-            <h3 class="text-2xl font-bold mb-4">Agregar Producto</h3>
-            <form id="productForm">
-                <input type="text" id="nombre" placeholder="Nombre del producto" class="w-full p-2 border rounded-md mb-2" required>
-                <input type="text" id="descripcion" placeholder="Descripción" class="w-full p-2 border rounded-md mb-2" required>
-                <input type="number" id="precio" placeholder="Precio" class="w-full p-2 border rounded-md mb-2" required>
-                <input type="number" id="stock" placeholder="Stock" class="w-full p-2 border rounded-md mb-2" required>
-                <input type="text" id="imagen" placeholder="URL de la imagen (opcional)" class="w-full p-2 border rounded-md mb-2">
-                <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700">Guardar Producto</button>
+        <div class="bg-white p-8 rounded-lg shadow-2xl max-w-lg mx-auto mt-8 border border-gray-300">
+            <h3 class="text-2xl font-bold mb-6 text-gray-700 text-center">Agregar Producto</h3>
+            <form id="productForm" class="space-y-6">
+                <div class="relative">
+                    <input type="text" id="nombre" required class="peer w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none focus:border-blue-500 placeholder-gray-400" placeholder="Nombre">
+                    <label for="nombre" class="absolute left-3 top-3 text-gray-500 text-sm transition-all duration-200 peer-focus:top-[-10px] peer-focus:text-xs peer-focus:text-blue-600 peer-valid:top-[-10px] peer-valid:text-xs peer-valid:text-blue-600 bg-white px-1">Nombre del producto</label>
+                </div>
+                <div class="relative">
+                    <input type="text" id="descripcion" required class="peer w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none focus:border-blue-500 placeholder-gray-400" placeholder="Detalles">
+                    <label for="descripcion" class="absolute left-3 top-3 text-gray-500 text-sm transition-all duration-200 peer-focus:top-[-10px] peer-focus:text-xs peer-focus:text-blue-600 peer-valid:top-[-10px] peer-valid:text-xs peer-valid:text-blue-600 bg-white px-1">Descripción</label>
+                </div>
+                <div class="relative">
+                    <input type="number" id="precio" required class="peer w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none focus:border-blue-500 placeholder-gray-400" placeholder="Precio">
+                    <label for="precio" class="absolute left-3 top-3 text-gray-500 text-sm transition-all duration-200 peer-focus:top-[-10px] peer-focus:text-xs peer-focus:text-blue-600 peer-valid:top-[-10px] peer-valid:text-xs peer-valid:text-blue-600 bg-white px-1">Precio</label>
+                </div>
+                <div class="relative">
+                    <input type="number" id="stock" required class="peer w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none focus:border-blue-500 placeholder-gray-400" placeholder="Stock">
+                    <label for="stock" class="absolute left-3 top-3 text-gray-500 text-sm transition-all duration-200 peer-focus:top-[-10px] peer-focus:text-xs peer-focus:text-blue-600 peer-valid:top-[-10px] peer-valid:text-xs peer-valid:text-blue-600 bg-white px-1">Stock</label>
+                </div>
+                <div class="relative">
+                    <input type="text" id="imagen" class="peer w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none focus:border-blue-500 placeholder-gray-400" placeholder="URL de la imagen">
+                    <label for="imagen" class="absolute left-3 top-3 text-gray-500 text-sm transition-all duration-200 peer-focus:top-[-10px] peer-focus:text-xs peer-focus:text-blue-600 peer-valid:top-[-10px] peer-valid:text-xs peer-valid:text-blue-600 bg-white px-1">URL de la imagen (opcional)</label>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition-all shadow-md">Guardar Producto</button>
             </form>
         </div>
+        
+        
+        
+
 
         <!-- Sección de productos -->
         <div id="productosContainer" class="grid md:grid-cols-3 gap-12 mt-8"></div>
