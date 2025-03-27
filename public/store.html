@@ -77,6 +77,10 @@
                             class="mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700">
                             Eliminar
                         </button>
+                        <button onclick="actualizarProducto('${producto._id}', '${producto.nombre}', '${producto.descripcion}', ${producto.precio}, ${producto.stock})"
+                            class="mt-4 bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-700">
+                            Actualizar
+                        </button>
                     `;
                     contenedor.appendChild(card);
                 });
@@ -136,6 +140,42 @@
                     console.error("Error eliminando el producto:", error);
                 }
             }
+        
+
+            async function actualizarProducto(id, nombre, descripcion, precio, stock) {
+                try {
+                    // Obtener los nuevos valores del producto (pueden ser ingresados en un formulario)
+                    const nuevoNombre = prompt("Nuevo nombre:", nombre) || nombre;
+                    const nuevaDescripcion = prompt("Nueva descripción:", descripcion) || descripcion;
+                    const nuevoPrecio = parseFloat(prompt("Nuevo precio:", precio)) || precio;
+                    const nuevoStock = parseInt(prompt("Nuevo stock:", stock)) || stock;
+
+                    // Crear el objeto con los datos actualizados
+                    const productoActualizado = {
+                        nombre: nuevoNombre,
+                        descripcion: nuevaDescripcion,
+                        precio: nuevoPrecio,
+                        stock: nuevoStock
+                    };
+
+                    // Enviar la solicitud PUT al backend
+                    const response = await fetch(`http://localhost:5100/products/update/${id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(productoActualizado)
+                    });
+
+                    if (response.ok) {
+                        alert(`Producto "${nuevoNombre}" actualizado con éxito`);
+                        cargarProductos(); // Recargar la lista de productos
+                    } else {
+                        alert("Error al actualizar el producto");
+                    }
+                } catch (error) {
+                    console.error("Error actualizando el producto:", error);
+                }
+            }
+
 
     </script>
 </body>
