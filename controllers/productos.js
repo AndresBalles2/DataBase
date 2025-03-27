@@ -7,13 +7,14 @@ class ProductController {
     async create(req, res) {
         try {
             const { nombre, descripcion, precio, stock, categoria, imagen } = req.body;
-    
+            
+            // const productexist= await productsModel.findone({})
             // Validar que todos los campos requeridos estén presentes
-            if (!nombre || !descripcion || !precio || !stock || !categoria) {
+            if (!nombre || !descripcion || !precio || !stock ) {
                 return res.status(400).json({ error: "Todos los campos son obligatorios" });
             }
     
-            const nuevoProducto = await productModel.create({ nombre, descripcion, precio, stock, categoria, imagen });
+            const nuevoProducto = await  productsModel.create({ nombre, descripcion, precio, stock, categoria, imagen });
             res.status(201).json(nuevoProducto);
         } catch (error) {
             console.error("Error al crear producto:", error);
@@ -49,8 +50,8 @@ class ProductController {
     // Actualizar un producto por ID
     async update(req, res) {
         try {
-            const { id } = req.params;
-            const productoActualizado = await productsModel.update(id, req.body);
+            const { nombre } = req.params;
+            const productoActualizado = await productsModel.update(nombre, req.body);
             if (!productoActualizado) {
                 return res.status(404).json({ error: "Producto no encontrado" });
             }
@@ -63,8 +64,8 @@ class ProductController {
     // Eliminar un producto por ID
     async delete(req, res) {
         try {
-            const { id } = req.params;
-            const productoEliminado = await productsModel.delete(id);
+            const { nombre } = req.params;
+            const productoEliminado = await productsModel.delete(nombre);
             if (!productoEliminado) {
                 return res.status(404).json({ error: "Producto no encontrado" });
             }
