@@ -33,11 +33,23 @@ class ProductController {
         }
     }
 
-    // Obtener un producto por ID
+
+    async update(req, res) {
+        try {
+            const { id } = req.params; // Cambiar de nombre a id
+            const productoActualizado = await productsModel.update(id, req.body);
+            if (!productoActualizado) {
+                return res.status(404).json({ error: "Producto no encontrado" });
+            }
+            res.status(200).json(productoActualizado);
+        } catch (e) {
+            res.status(500).json({ error: "Error al actualizar el producto", detalles: e.message });
+        }
+    }
     async getOne(req, res) {
         try {
             const { id } = req.params;
-            const producto = await productsModel.getOne(id);
+            const producto = await productsModel.getOneById(id); // Usar getOneById en lugar de getOne
             if (!producto) {
                 return res.status(404).json({ error: "Producto no encontrado" });
             }
@@ -47,34 +59,25 @@ class ProductController {
         }
     }
 
-    // Actualizar un producto por ID
-    async update(req, res) {
-        try {
-            const { nombre } = req.params;
-            const productoActualizado = await productsModel.update(nombre, req.body);
-            if (!productoActualizado) {
-                return res.status(404).json({ error: "Producto no encontrado" });
-            }
-            res.status(200).json(productoActualizado);
-        } catch (e) {
-            res.status(500).json({ error: "Error al actualizar el producto", detalles: e.message });
-        }
-    }
-
     // Eliminar un producto por ID
     async delete(req, res) {
-        
         try {
             const { id } = req.params;
-            const productoEliminado = await productsModel.findByIdAndDelete(id);
+            console.log('ID recibido para eliminar:', id); 
+            const productoEliminado = await productsModel.delete(id);
+            
             if (!productoEliminado) {
+                console.log('Producto no encontrado'); 
                 return res.status(404).json({ error: "Producto no encontrado" });
             }
+            
+            console.log('Producto eliminado con éxito'); 
             res.status(204).send(); // Confirmación sin contenido
         } catch (e) {
+            console.error('Error al eliminar producto:', e); 
             res.status(500).json({ error: "Error al eliminar el producto", detalles: e.message });
         }
-        }
+    }
     
 }
 

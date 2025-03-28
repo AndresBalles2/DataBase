@@ -16,6 +16,6 @@ route.get('/:id', productController.getOne);
 route.put('/:id', productController.update);
 
 // Eliminar un producto por ID
-route.delete('/:id', productController.delete);
+route.delete('/delete/:id', productController.delete);
 
 export default route;

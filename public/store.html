@@ -125,32 +125,38 @@
                 if (!confirm(`¿Estás seguro de eliminar "${nombre}"?`)) return;
 
                 try {
+                    console.log('Intentando eliminar producto:', { id, nombre }); // Depuración
+
                     const response = await fetch(`http://localhost:5100/products/delete/${id}`, {
                         method: 'DELETE',
                         headers: { 'Content-Type': 'application/json' }
                     });
 
+                    console.log('Respuesta del servidor:', response.status); // Depuración
+
                     if (response.ok) {
                         alert(`Producto "${nombre}" eliminado con éxito`);
-                        cargarProductos(); 
+                        // cargarProductos(); 
                     } else {
-                        alert("Error al eliminar el producto00");
+                        const errorText = await response.text();
+                        console.error('Error en la eliminación:', errorText);
+                        alert(`Error al eliminar el producto: ${errorText}`);
                     }
                 } catch (error) {
                     console.error("Error eliminando el producto:", error);
+                    alert("No se pudo conectar con el servidor");
                 }
             }
         
 
             async function actualizarProducto(id, nombre, descripcion, precio, stock) {
                 try {
-                    // Obtener los nuevos valores del producto (pueden ser ingresados en un formulario)
+                  
                     const nuevoNombre = prompt("Nuevo nombre:", nombre) || nombre;
                     const nuevaDescripcion = prompt("Nueva descripción:", descripcion) || descripcion;
                     const nuevoPrecio = parseFloat(prompt("Nuevo precio:", precio)) || precio;
                     const nuevoStock = parseInt(prompt("Nuevo stock:", stock)) || stock;
 
-                    // Crear el objeto con los datos actualizados
                     const productoActualizado = {
                         nombre: nuevoNombre,
                         descripcion: nuevaDescripcion,
@@ -158,7 +164,6 @@
                         stock: nuevoStock
                     };
 
-                    // Enviar la solicitud PUT al backend
                     const response = await fetch(`http://localhost:5100/products/update/${id}`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
@@ -167,7 +172,7 @@
 
                     if (response.ok) {
                         alert(`Producto "${nuevoNombre}" actualizado con éxito`);
-                        cargarProductos(); // Recargar la lista de productos
+                        cargarProductos(); 
                     } else {
                         alert("Error al actualizar el producto");
                     }
