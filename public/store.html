@@ -151,11 +151,16 @@
 
             async function actualizarProducto(id, nombre, descripcion, precio, stock) {
                 try {
-                  
                     const nuevoNombre = prompt("Nuevo nombre:", nombre) || nombre;
                     const nuevaDescripcion = prompt("Nueva descripción:", descripcion) || descripcion;
                     const nuevoPrecio = parseFloat(prompt("Nuevo precio:", precio)) || precio;
                     const nuevoStock = parseInt(prompt("Nuevo stock:", stock)) || stock;
+
+                    // Validaciones básicas
+                    if (isNaN(nuevoPrecio) || isNaN(nuevoStock)) {
+                        alert("Por favor, ingrese valores numéricos válidos para precio y stock");
+                        return;
+                    }
 
                     const productoActualizado = {
                         nombre: nuevoNombre,
@@ -164,20 +169,25 @@
                         stock: nuevoStock
                     };
 
-                    const response = await fetch(`http://localhost:5100/products/update/${id}`, {
+                    const response = await fetch(`http://localhost:5100/products/${id}`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(productoActualizado)
                     });
 
                     if (response.ok) {
+                        const productoRespuesta = await response.json();
                         alert(`Producto "${nuevoNombre}" actualizado con éxito`);
                         cargarProductos(); 
                     } else {
-                        alert("Error al actualizar el producto");
+                        // Intenta obtener más detalles del error
+                        const errorText = await response.text();
+                        console.error('Error en la actualización:', errorText);
+                        alert(`Error al actualizar el producto: ${errorText}`);
                     }
                 } catch (error) {
-                    console.error("Error actualizando el producto:", error);
+                    // console.error("Error actualizando el producto:", error);
+                    // alert("No se pudo conectar con el servidor");
                 }
             }
 
