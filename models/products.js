@@ -43,10 +43,10 @@ class productModel {
                     totalStock: {  $sum: "$stock" } 
                 },
             },
-            
+
             { $sort: { _id: 1 } },
 
-            {$limit: 5}
+            {$limit: 5},
         ]);
     }
 
@@ -59,7 +59,8 @@ class productModel {
                     precio: 1,
                     precioConIVA: { $multiply: ["$precio", 1.19] }
                 }
-            }
+            },
+            { $skip: 1 },
         ]);
     }
 
