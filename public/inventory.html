@@ -37,7 +37,7 @@
                         <option value="" disabled selected>Selecciona una categoría</option>
                         <option value="pastilla">Pastilla</option>
                         <option value="crema">Crema</option>
-                        <option value="inyección">Inyección</option>
+                        <option value="inyeccion">Inyección</option>
                     </select>
                     <label for="categoria" class="absolute left-3 top-[-10px] text-xs text-blue-600 bg-white px-1">Categoría</label>
                 </div>
@@ -57,13 +57,16 @@
             </form>
         </div>
 
-        <button id="verAgrupados" class="bg-blue-500 text-white my-2 px-4 py-2 rounded hover:bg-blue-700 flex mx-auto" >
-            Ver resumen por categoría
-        </button>
+        <select id="categoriaFiltro" class="...">
+            <option value="">-- Todos --</option>
+            <option value="pastilla">Pastilla</option>
+            <option value="crema">Crema</option>
+            <option value="inyeccion">Inyección</option>
+            <option value="conIVA">Con IVA</option>
+            <option value="agrupados">Agrupados</option>
+        </select>
+       
 
-        <button id="verConIVA" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 flex mx-auto">
-            Ver productos con IVA
-        </button>
         <div id="productosConIVAContainer" class="mt-6"></div>
 
         <div id="agrupadosContainer" class="mt-8 max-w-2xl mx-auto"></div>
@@ -89,7 +92,7 @@
                     <select id="editCategoria" class="w-full border rounded px-3 py-2 mt-1" required>
                         <option value="pastilla">Pastilla</option>
                         <option value="crema">Crema</option>
-                        <option value="inyección">Inyección</option>
+                        <option value="inyecion">Inyección</option>
                     </select>
                 </div>
 
@@ -111,8 +114,11 @@
             </div>
         </div>
 
+         <div id="productosContainerF" class="grid md:grid-cols-3 gap-12 mt-8"></div>
+         
         <!-- Sección de productos -->
         <div id="productosContainer" class="grid md:grid-cols-3 gap-12 mt-8"></div>
+       
     </main>
 
     <script>
@@ -126,14 +132,81 @@
             // Mostrar los productos en el DOM
         }
 
-        async function cargarProductos() {
-            try {
-                const response = await fetch("http://localhost:5100/products/getAll");
-                const productos = await response.json();
-                
-                const contenedor = document.getElementById("productosContainer");
-                contenedor.innerHTML = ""; // Limpiar contenido anterior si recargas
+       document.getElementById("categoriaFiltro").addEventListener("change", (e) => {
+            cargarProductos(e.target.value || "getAll");
+        });
 
+
+        async function cargarProductos(filtro = "getAll") {
+            try {
+                let url;
+
+                // Determinar la URL según el filtro seleccionado
+                switch (filtro) {
+                    case "conIVA":
+                        url = "http://localhost:5100/products/proyectados";
+                        break;
+                    case "agrupados":
+                        url = "http://localhost:5100/products/agrupados";
+                        break;
+                    case "pastilla":
+                         url = `http://localhost:5100/products/filtrar/pastilla`;
+                        break;
+                    case "crema":
+                         url = `http://localhost:5100/products/filtrar/crema`;
+                        break;
+                    case "inyeccion":
+                        url = `http://localhost:5100/products/filtrar/inyección`;
+                        break;
+                    default:
+                        url = "http://localhost:5100/products/getAll";
+                }
+
+                const response = await fetch(url);
+                const productos = await response.json();
+
+                const contenedor = document.getElementById("productosContainer");
+                contenedor.innerHTML = ""; // Limpiar contenido anterior
+
+                // Mostrar agrupados (si filtro es 'agrupados')
+                if (filtro === "agrupados") {
+                    contenedor.innerHTML = `
+                        <h3 class="text-2xl font-bold text-blue-700 text-center mb-4">Resumen por Categoría</h3>
+                        <ul class="space-y-4">
+                            ${productos.map(grupo => `
+                                <li class="bg-white p-4 rounded shadow flex justify-between">
+                                    <span><strong>Categoría:</strong> ${grupo._id || 'Sin categoría'}</span>
+                                    <span><strong>Total productos:</strong> ${grupo.totalProductos}</span>
+                                    <span><strong>Stock total:</strong> ${grupo.totalStock}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    `;
+                    return;
+                }
+
+                // Mostrar productos con IVA
+                if (filtro === "conIVA") {
+                    productos.forEach(prod => {
+                        contenedor.innerHTML += `
+                            <div class="bg-white p-4 shadow rounded mb-3">
+                                <h4 class="font-semibold">${prod.nombre}</h4>
+                                <p>Categoría: ${prod.categoria}</p>
+                                <p>Precio: $${prod.precio}</p>
+                                <p>Precio con IVA (19%): <strong>$${prod.precioConIVA.toFixed(2)}</strong></p>
+                            </div>
+                        `;
+                    });
+                    return;
+                }
+               
+                if (!Array.isArray(productos)) {
+                    console.error("Respuesta no válida:", productos);
+                    alert("Ocurrió un error al cargar los productos.");
+                    return;
+                }
+                 console.log("Respuesta de productos:", productos);
+                // Mostrar productos normales (getAll o por categoría)
                 productos.forEach(producto => {
                     const card = document.createElement("div");
                     card.className = "bg-white p-6 shadow-xl rounded-lg text-center";
@@ -155,35 +228,13 @@
                     `;
                     contenedor.appendChild(card);
                 });
+
             } catch (error) {
                 console.error("Error cargando los productos:", error);
             }
         }
 
-        document.getElementById("verConIVA").addEventListener("click", async () => {
-            try {
-                const response = await fetch("http://localhost:5100/products/proyectados");
-                const data = await response.json();
-                const productos = Array.isArray(data) ? data : data.productos;
-                console.log(productos);
-                const container = document.getElementById("productosConIVAContainer");
-                container.innerHTML = "<h3 class='text-xl font-bold mb-4'>Productos con IVA</h3>";
-
-                productos.forEach(prod => {
-                    container.innerHTML += `
-                    <div class="bg-white p-4 shadow rounded mb-3">
-                        <h4 class="font-semibold">${prod.nombre}</h4>
-                        <p>Categoría: ${prod.categoria}</p>
-                        <p>Precio: $${prod.precio}</p>
-                        <p>Precio con IVA (19%): <strong>$${prod.precioConIVA.toFixed(2)}</strong></p>
-                    </div>
-                    `;
-                });
-            } catch (err) {
-                console.error("Error al cargar productos con IVA:", err);
-                alert("Error al mostrar productos con IVA");
-            }
-        });
+       
 
         document.getElementById("productForm").addEventListener("submit", async (e) => {
                 e.preventDefault();
@@ -244,7 +295,7 @@
                 }
             }
             
-            document.getElementById("verAgrupados")
+            
        
             function abrirEdicion(id, nombre, categoria, descripcion, precio, stock) {
                 document.getElementById("modalEditar").classList.remove("hidden");
@@ -307,31 +358,6 @@
                     // alert("No se pudo conectar con el servidor");
                 }
             }
-
-            document.getElementById("verAgrupados").addEventListener("click", async () => {
-                try {
-                    const res = await fetch("http://localhost:5100/products/agrupados");
-                    const datos = await res.json();
-                    console.log(datos);
-                    const container = document.getElementById("agrupadosContainer");
-                    container.innerHTML = `
-                        <h3 class="text-2xl font-bold text-blue-700 text-center mb-4">Resumen por Categoría</h3>
-                        <ul class="space-y-4">
-                            ${datos.map(grupo => `
-                                <li class="bg-white p-4 rounded shadow flex justify-between">
-                                    <span><strong>Categoría:</strong> ${grupo._id || 'Sin categoría'}</span>
-                                    <span><strong>Total productos:</strong> ${grupo.totalProductos}</span>
-                                    <span><strong>Stock total:</strong> ${grupo.totalStock}</span>
-                                </li>
-                            `).join('')}
-                        </ul>
-                    `;
-                    
-                } catch (error) {
-                    console.error("Error al obtener agrupación:", error);
-                    alert("Hubo un error al obtener los productos agrupados.");
-                }
-            });
 
     </script>
 </body>

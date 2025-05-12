@@ -12,7 +12,12 @@ route.get('/getAll', productController.getAll);
 //Agrupar por categoria
 route.get("/agrupados",productController.productosAgrupados);
 
+//productos proyectados con nuevas filas
 route.get("/proyectados", productController.getProductosProyectados);
+
+//Filtrar por categoria
+route.get("/filtrar/:categoria", productController.filtrarProductosPorCategoria);
+
 // Obtener un producto por ID
 route.get('/:id', productController.getOne);
 

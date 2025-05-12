@@ -8,8 +8,6 @@ class ProductController {
         try {
             const { nombre, descripcion, precio, stock, categoria, imagen } = req.body;
             
-            // const productexist= await productsModel.findone({})
-            // Validar que todos los campos requeridos estén presentes
             if (!nombre || !descripcion || !precio || !stock ) {
                 return res.status(400).json({ error: "Todos los campos son obligatorios" });
             }
@@ -95,6 +93,17 @@ class ProductController {
         } catch (error) {
             console.error("Error en getProductosProyectados:", error);
             res.status(500).json({ error: "Error al obtener productos", detalles: error.message });
+        }
+    }
+
+    async filtrarProductosPorCategoria(req, res) {
+        try {
+            const categoria = req.params.categoria;
+            console.log('controlador',categoria)
+            const productos = await productsModel.filtrarPorCategoria({ categoria }); 
+            res.status(200).json(productos);
+        } catch (error) {
+            res.status(500).json({ error: "Error al filtrar productos", detalles: error.message });
         }
     }
 };

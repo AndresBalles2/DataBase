@@ -37,7 +37,13 @@ class productModel {
     // Agrupar productos por categoría
     async groupByCategory() {
         return await Product.aggregate([
-            { $group: { _id: "$categoria", total: { $sum: 1 } } }
+            { $group: { 
+                    _id: "$categoria", 
+                    totalProductos: { $sum: "$precio"},
+                    totalStock: {  $sum: "$stock" } 
+                },
+            },
+            { $sort: { _id: 1 } }
         ]);
     }
 
@@ -53,6 +59,24 @@ class productModel {
             }
         ]);
     }
+
+    async filtrarPorCategoria(categoria) {
+        console.log('modelo:', categoria); 
+        return await Product.aggregate([
+            {
+                $match: { categoria: categoria.categoria } // Filtra productos por la categoría recibida
+            },
+            {
+                $project: {
+                    nombre: 1,
+                    categoria: 1,
+                    precio: 1,
+                    stock: 1
+                }
+            }
+        ]);
+    }
+
 }
 
 export default new productModel();
