@@ -78,7 +78,15 @@ class ProductController {
             res.status(500).json({ error: "Error al eliminar el producto", detalles: e.message });
         }
     }
-    
+
+    async productosAgrupados( req, res){
+        try{
+            const productosAgrupados= await productsModel.groupByCategory();
+            res.status(200).json(productosAgrupados);
+        }catch(e){
+            res.status(500).json({error:"errorrrr", deatalles:e.message});
+        }
+    }
 }
 
 export default new ProductController();

@@ -9,6 +9,9 @@ route.post('/create', productController.create);
 // Obtener todos los productos
 route.get('/getAll', productController.getAll);
 
+//Agrupar por categoria
+route.get("/agrupados",productController.productosAgrupados);
+
 // Obtener un producto por ID
 route.get('/:id', productController.getOne);
 

@@ -14,6 +14,11 @@ const productSchema = new Schema({
         required: true,
         trim: true
     },
+    categoria: { 
+        type: String,
+        required: true,
+        trim: true
+    },
     precio: {
         type: Number,
         required: true
@@ -21,10 +26,6 @@ const productSchema = new Schema({
     stock: {
         type: Number,
         required: true
-    },
-    categoria: { 
-        type: String,
-        required: false
     },
     imagen: {
         type: String,

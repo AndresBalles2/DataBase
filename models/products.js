@@ -33,6 +33,20 @@ class productModel {
     async getOne(filtro) {
         return await Product.findOne(filtro);
     }
+
+    // Agrupar productos por categoría
+    async groupByCategory() {
+        return await Product.aggregate([
+        {
+            $group: {
+                _id: "$categoria",
+                totalProductos: { $sum: 1 },
+                totalStock: { $sum: "$stock" }
+            }
+        }
+    ]);
+    }
+
 }
 
 export default new productModel();
