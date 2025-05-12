@@ -86,7 +86,20 @@ class ProductController {
         }catch(e){
             res.status(500).json({error:"errorrrr", deatalles:e.message});
         }
+    } 
+    
+    async getProductosProyectados(req, res) {
+        try {
+            const productos = await productsModel.getProductosProyectados();
+            res.status(200).json(productos);
+        } catch (error) {
+            console.error("Error en getProductosProyectados:", error);
+            res.status(500).json({ error: "Error al obtener productos", detalles: error.message });
+        }
     }
-}
+};
+     
+    
+
 
 export default new ProductController();

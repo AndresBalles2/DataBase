@@ -37,16 +37,22 @@ class productModel {
     // Agrupar productos por categoría
     async groupByCategory() {
         return await Product.aggregate([
-        {
-            $group: {
-                _id: "$categoria",
-                totalProductos: { $sum: 1 },
-                totalStock: { $sum: "$stock" }
-            }
-        }
-    ]);
+            { $group: { _id: "$categoria", total: { $sum: 1 } } }
+        ]);
     }
 
+    async getProductosProyectados() {
+        return await Product.aggregate([
+            {
+                $project: {
+                    nombre: 1,
+                    categoria: 1,
+                    precio: 1,
+                    precioConIVA: { $multiply: ["$precio", 1.19] }
+                }
+            }
+        ]);
+    }
 }
 
 export default new productModel();

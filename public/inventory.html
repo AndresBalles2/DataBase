@@ -57,15 +57,14 @@
             </form>
         </div>
 
-        <button id="verAgrupados" class="bg-blue-600 text-white px-4 py-2 rounded mt-4 flex mx-auto" >
+        <button id="verAgrupados" class="bg-blue-500 text-white my-2 px-4 py-2 rounded hover:bg-blue-700 flex mx-auto" >
             Ver resumen por categoría
         </button>
-        
-        <!-- <div class="text-center mt-12">
-            <button id="verAgrupados" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-800 shadow-lg">
-                Ver Productos Agrupados por Categoría
-            </button>
-        </div> -->
+
+        <button id="verConIVA" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 flex mx-auto">
+            Ver productos con IVA
+        </button>
+        <div id="productosConIVAContainer" class="mt-6"></div>
 
         <div id="agrupadosContainer" class="mt-8 max-w-2xl mx-auto"></div>
         <!-- Modal de edición -->
@@ -88,9 +87,9 @@
                 <div class="mb-4">
                     <label for="editCategoria" class="block text-sm font-medium">Categoría</label>
                     <select id="editCategoria" class="w-full border rounded px-3 py-2 mt-1" required>
-                    <option value="pastilla">Pastilla</option>
-                    <option value="crema">Crema</option>
-                    <option value="inyección">Inyección</option>
+                        <option value="pastilla">Pastilla</option>
+                        <option value="crema">Crema</option>
+                        <option value="inyección">Inyección</option>
                     </select>
                 </div>
 
@@ -120,6 +119,13 @@
         document.addEventListener("DOMContentLoaded", () => {
             cargarProductos();
         });
+
+        async function cargarProductosProyectados() {
+            const res = await fetch("http://localhost:5100/products/proyectados");
+            const productos = await res.json();
+            // Mostrar los productos en el DOM
+        }
+
         async function cargarProductos() {
             try {
                 const response = await fetch("http://localhost:5100/products/getAll");
@@ -153,6 +159,31 @@
                 console.error("Error cargando los productos:", error);
             }
         }
+
+        document.getElementById("verConIVA").addEventListener("click", async () => {
+            try {
+                const response = await fetch("http://localhost:5100/products/proyectados");
+                const data = await response.json();
+                const productos = Array.isArray(data) ? data : data.productos;
+                console.log(productos);
+                const container = document.getElementById("productosConIVAContainer");
+                container.innerHTML = "<h3 class='text-xl font-bold mb-4'>Productos con IVA</h3>";
+
+                productos.forEach(prod => {
+                    container.innerHTML += `
+                    <div class="bg-white p-4 shadow rounded mb-3">
+                        <h4 class="font-semibold">${prod.nombre}</h4>
+                        <p>Categoría: ${prod.categoria}</p>
+                        <p>Precio: $${prod.precio}</p>
+                        <p>Precio con IVA (19%): <strong>$${prod.precioConIVA.toFixed(2)}</strong></p>
+                    </div>
+                    `;
+                });
+            } catch (err) {
+                console.error("Error al cargar productos con IVA:", err);
+                alert("Error al mostrar productos con IVA");
+            }
+        });
 
         document.getElementById("productForm").addEventListener("submit", async (e) => {
                 e.preventDefault();

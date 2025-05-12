@@ -12,6 +12,7 @@ route.get('/getAll', productController.getAll);
 //Agrupar por categoria
 route.get("/agrupados",productController.productosAgrupados);
 
+route.get("/proyectados", productController.getProductosProyectados);
 // Obtener un producto por ID
 route.get('/:id', productController.getOne);
 
