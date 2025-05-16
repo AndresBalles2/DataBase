@@ -9,18 +9,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" type="image/png" href="./img/favicon.png">
   </head>
-  <body class="h-screen bg-gradient-to-r from-gray-100 to-gray-400 font-sans">
+  <body class="h-screen bg-gradient-to-r from-gray-300 to-gray-600 font-sans">
     <!-- Header -->
-    <header class="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6 flex justify-between items-center shadow-2xl rounded-2xl mx-6 mt-4 border border-blue-400/50">
-      <span class="text-3xl font-bold drop-shadow-lg tracking-wide hover:text-gray-200 transition duration-300 ease-in-out">
+    <header class="bg-gradient-to-r from-gray-800 to-gray-900 text-white p-6 flex justify-between items-center shadow-2xl rounded-2xl mx-6 mt-4 border border-purple-400/50">
+      <span class="text-3xl font-bold drop-shadow-lg tracking-wide hover:text-purple-600 text-purple-400 transition duration-300 ease-in-out">
         Farmacia Salud Plus
       </span>
       
       <nav class="flex space-x-4">
-        <a href="./login.html" id="loginLink" class="relative px-6 py-2 text-lg font-medium group rounded-full hover:bg-white hover:text-blue-600 transition-all duration-500 ease-in-out">
+        <a href="./login.html" id="loginLink" class="relative px-6 py-2 text-lg font-medium group rounded-full hover:bg-gray-700 hover:text-purple-600 transition-all duration-500 ease-in-out">
           <span class="relative z-10">Login</span>
         </a>
-        <a href="./register.html" id="registerLink" class="relative px-6 py-2 text-lg font-medium group rounded-full hover:bg-white hover:text-blue-600 transition-all duration-500 ease-in-out">
+        <a href="./register.html" id="registerLink" class="relative px-6 py-2 text-lg font-medium group rounded-full hover:bg-gray-700 hover:text-purple-600 transition-all duration-500 ease-in-out">
           <span class="relative z-10">Register</span>
         </a>
         <a href="#" id="logoutLink" onclick="logout()" class="relative px-6 py-2 text-lg font-medium group hidden rounded-full hover:bg-white hover:text-blue-600 transition-all duration-500 ease-in-out">
@@ -88,36 +88,36 @@
       
 
 <!-- Contenedor de Productos -->
-<div class="p-12 bg-gradient-to-r from-gray-100 to-gray-400 flex justify-center">
-  <div class="bg-white p-16 rounded-2xl shadow-2xl w-full max-w-7xl min-h-[500px]">
-    <h2 class="text-4xl font-bold text-center text-blue-600 mb-8">Nuestros Productos</h2>
+<div class="p-12 bg-gradient-to-r from-gray-300 to-gray-600 flex justify-center">
+  <div class="bg-gray-900 p-16 rounded-2xl shadow-2xl w-full max-w-7xl min-h-[500px]">
+    <h2 class="text-4xl font-bold text-center text-purple-400 mb-8">Nuestros Productos</h2>
     <div class="grid md:grid-cols-3 gap-12">
       <!-- Tarjeta de Producto -->
-      <div class="bg-white p-6 shadow-lg rounded-lg transition transform hover:-translate-y-2 hover:shadow-2xl hover:ring-2 hover:ring-blue-400 cursor-pointer">
+      <div class="bg-gray-800 p-6 shadow-lg rounded-lg transition transform hover:-translate-y-2 hover:shadow-2xl hover:ring-2 hover:ring-purple-400 cursor-pointer">
         <div class="overflow-hidden rounded-md">
           <img src="./img/vitamina.webp" class="w-full rounded-md transition-transform duration-300 hover:scale-105" />
         </div>
-        <h3 class="text-2xl font-bold mt-4 text-gray-800">Medicamentos</h3>
-        <p class="text-gray-600 text-lg">Medicamentos de alta calidad para el cuidado de tu salud.</p>
-        <button class="mt-4 px-6 py-2 bg-blue-500 text-white rounded-full font-medium transition-all duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg hover:scale-105">Ver Más</button>
+        <h3 class="text-2xl font-bold mt-4 text-white">Medicamentos</h3>
+        <p class="text-gray-300 text-lg">Medicamentos de alta calidad para el cuidado de tu salud.</p>
+        <button class="mt-4 px-6 py-2 bg-purple-400 text-white rounded-full font-medium transition-all duration-300 ease-in-out hover:bg-purple-700 hover:shadow-lg hover:scale-105">Ver Más</button>
       </div>     
 
-      <div class="bg-white p-6 shadow-lg rounded-lg transition transform hover:-translate-y-2 hover:shadow-2xl hover:ring-2 hover:ring-blue-400 cursor-pointer">
+      <div class="bg-gray-800 p-6 shadow-lg rounded-lg transition transform hover:-translate-y-2 hover:shadow-2xl hover:ring-2 hover:ring-purple-400 cursor-pointer">
         <div class="overflow-hidden rounded-md">
           <img src="./img/vitamina.webp" class="w-full rounded-md transition-transform duration-300 hover:scale-105" />
         </div>
-        <h3 class="text-2xl font-bold mt-4 text-gray-800">Suplementos</h3>
-        <p class="text-gray-600 text-lg">Vitaminas y suplementos para mejorar tu bienestar.</p>
-        <button class="mt-4 px-6 py-2 bg-blue-500 text-white rounded-full font-medium transition-all duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg hover:scale-105">Ver Más</button>
+        <h3 class="text-2xl font-bold mt-4 text-white">Suplementos</h3>
+        <p class="text-gray-300 text-lg">Vitaminas y suplementos para mejorar tu bienestar.</p>
+        <button class="mt-4 px-6 py-2 bg-purple-400 text-white rounded-full font-medium transition-all duration-300 ease-in-out hover:bg-purple-700 hover:shadow-lg hover:scale-105">Ver Más</button>
       </div>
 
-      <div class="bg-white p-6 shadow-lg rounded-lg transition transform hover:-translate-y-2 hover:shadow-2xl hover:ring-2 hover:ring-blue-400 cursor-pointer">
+      <div class="bg-gray-800 p-6 shadow-lg rounded-lg transition transform hover:-translate-y-2 hover:shadow-2xl hover:ring-2 hover:ring-purple-400 cursor-pointer">
         <div class="overflow-hidden rounded-md">
           <img src="./img/vitamina.webp" class="w-full rounded-md transition-transform duration-300 hover:scale-105" />
         </div>
-        <h3 class="text-2xl font-bold mt-4 text-gray-800">Cuidado Personal</h3>
-        <p class="text-gray-600 text-lg">Productos de higiene y cuidado personal de alta calidad.</p>
-        <button class="mt-4 px-6 py-2 bg-blue-500 text-white rounded-full font-medium transition-all duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg hover:scale-105">Ver Más</button>
+        <h3 class="text-2xl font-bold mt-4 text-white">Cuidado Personal</h3>
+        <p class="text-gray-300 text-lg">Productos de higiene y cuidado personal de alta calidad.</p>
+        <button class="mt-4 px-6 py-2 bg-purple-400 text-white rounded-full font-medium transition-all duration-300 ease-in-out hover:bg-purple-700 hover:shadow-lg hover:scale-105">Ver Más</button>
       </div>
     </div>
   </div>
@@ -125,31 +125,31 @@
 
 
 <!-- Contenedor de Servicios -->
-<div class="p-12 bg-gradient-to-r from-gray-100 to-gray-400 flex justify-center">
-  <div class="bg-white p-16 rounded-2xl shadow-2xl w-full max-w-7xl min-h-[500px]">
-    <h2 class="text-4xl font-bold text-center text-blue-600">Nuestros Servicios</h2>
+<div class="p-12 bg-gradient-to-r from-gray-300 to-gray-600 flex justify-center">
+  <div class="bg-gray-900 p-16 rounded-2xl shadow-2xl w-full max-w-7xl min-h-[500px]">
+    <h2 class="text-4xl font-bold text-center text-purple-400">Nuestros Servicios</h2>
     <div class="grid md:grid-cols-2 gap-12 mt-12">
       
       <!-- Tarjeta 1 -->
-      <a href="./store.html" class="block bg-white p-6 shadow-xl rounded-lg text-center transition transform hover:scale-105 hover:shadow-2xl hover:bg-blue-50">
+      <a href="./store.html" class="block bg-gray-800 p-6 shadow-xl rounded-lg text-center transition transform hover:scale-105 hover:shadow-2xl hover:bg-gray-700">
         <div class="flex justify-center">
           <img src="./img/service.jpg" class="w-full max-w-md mx-auto rounded-md" />
         </div>
         <h3 class="text-2xl font-bold mt-4 flex items-center justify-center gap-2">
           🛒 Tienda Virtual
         </h3>
-        <p class="text-gray-600 text-lg">Compra tus productos desde la comodidad de tu hogar con envíos rápidos.</p>
+        <p class="text-purple-400 text-lg">Compra tus productos desde la comodidad de tu hogar con envíos rápidos.</p>
       </a>
 
       <!-- Tarjeta 2 -->
-      <a href="./inventory.html" class="block bg-white p-6 shadow-xl rounded-lg text-center transition transform hover:scale-105 hover:shadow-2xl hover:bg-blue-50">
+      <a href="./inventory.html" class="block bg-gray-800 p-6 shadow-xl rounded-lg text-center transition transform hover:scale-105 hover:shadow-2xl hover:bg-gray-700">
         <div class="flex justify-center">
           <img src="./img/service.jpg" class="w-full max-w-md mx-auto rounded-md" />
         </div>
         <h3 class="text-2xl font-bold mt-4 flex items-center justify-center gap-2">
           📦 Servicios de Inventario
         </h3>
-        <p class="text-gray-600 text-lg">Gestión eficiente del stock para asegurar la disponibilidad de productos.</p>
+        <p class="text-purple-400 text-lg">Gestión eficiente del stock para asegurar la disponibilidad de productos.</p>
       </a>
 
     </div>
@@ -159,29 +159,29 @@
 
 
 <!-- Contenedor del Footer -->
-<div class="p-12 bg-gradient-to-r from-gray-100 to-gray-400 flex justify-center">
-  <footer class="bg-gradient-to-r from-blue-600 to-blue-700 text-white text-center p-20 w-full max-w-8xl rounded-2xl shadow-2xl">
+<div class="p-12 bg-gradient-to-r from-gray-300 to-gray-600 flex justify-center">
+  <footer class="bg-gradient-to-r from-gray-800 to-gray-900 text-purple-400 text-center p-20 w-full max-w-8xl rounded-2xl shadow-2xl">
     <!-- Primera Fila -->
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
       
       <!-- Sección de Contacto -->
       <div>
         <h3 class="text-xl font-bold">📞 Contacto</h3>
-        <p class="text-gray-200">Tel: +57 300 123 4567</p>
-        <p class="text-gray-200">Email: contacto@farmaciasaludplus.com</p>
+        <p class="text-purple-400">Tel: +57 300 123 4567</p>
+        <p class="text-purple-400">Email: contacto@farmaciasaludplus.com</p>
       </div>
 
       <!-- Redes Sociales -->
       <div>
         <h3 class="text-xl font-bold">🌐 Síguenos</h3>
         <div class="flex justify-center space-x-6 mt-3">
-          <a href="#" class="text-gray-300 hover:text-white transition text-3xl">
+          <a href="#" class="text-purple-400 hover:text-white transition text-3xl">
             <i class="fab fa-facebook"></i>
           </a>
-          <a href="#" class="text-gray-300 hover:text-white transition text-3xl">
+          <a href="#" class="text-purple-400 hover:text-white transition text-3xl">
             <i class="fab fa-instagram"></i>
           </a>
-          <a href="#" class="text-gray-300 hover:text-white transition text-3xl">
+          <a href="#" class="text-purple-400 hover:text-white transition text-3xl">
             <i class="fab fa-twitter"></i>
           </a>
         </div>
@@ -193,12 +193,12 @@
     <div class="border-t border-gray-400/50 mt-8"></div>
 
     <!-- Segunda Fila -->
-    <div class="mt-6 flex flex-col md:flex-row justify-center gap-8 text-gray-300">
+    <div class="mt-6 flex flex-col md:flex-row justify-center gap-8 text-purple-400">
       <a href="#" class="hover:text-white transition">Términos y Condiciones</a>
       <a href="#" class="hover:text-white transition">Política de Privacidad</a>
     </div>
 
-    <p class="text-gray-300 mt-8">&copy; 2025 Farmacia Salud Plus. Todos los derechos reservados.</p>
+    <p class="text-purple-400 mt-8">&copy; 2025 Farmacia Salud Plus. Todos los derechos reservados.</p>
     
   </footer>
 </div>

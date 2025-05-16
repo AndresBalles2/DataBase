@@ -11,113 +11,107 @@
 </head>
 <body class="bg-gradient-to-r from-gray-100 to-gray-400 font-sans">
     <!-- Header -->
-    <header class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 flex justify-center shadow-2xl rounded-2xl mx-6 mt-4 border border-blue-400/50">
-        <a href="./index.html" class="text-3xl font-bold drop-shadow-lg tracking-wide hover:text-gray-200 transition duration-300 ease-in-out">
+    <header class="bg-gradient-to-r from-gray-700 to-gray-900 text-white p-6 flex justify-center shadow-2xl rounded-2xl mx-6 mt-4 border border-blue-400/50">
+        <a href="./index.html" class="text-3xl font-bold drop-shadow-lg tracking-wide text-purple-400 hover:text-purple-600 transition duration-300 ease-in-out">
             Farmacia Salud Plus
         </a>
     </header>
 
     <main class="p-12">
-        <h2 class="text-4xl font-bold text-center text-blue-600">Tienda</h2>
-
-        <!-- Formulario para agregar productos -->
-        <div class="bg-white p-8 rounded-lg shadow-2xl max-w-lg mx-auto mt-8 border border-gray-300">
-            <h3 class="text-2xl font-bold mb-6 text-gray-700 text-center">Agregar Producto</h3>
-            <form id="productForm" class="space-y-6">
+        <div class="min-h-screen bg-gray-900 p-6 text-white rounded-2xl">
+            <h2 class="text-4xl font-bold text-center text-purple-400">Tienda</h2>
+          
+            <!-- Formulario para agregar productos -->
+            <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-lg mx-auto mt-8 border border-gray-700">
+              <h3 class="text-2xl font-bold mb-6 text-purple-300 text-center">Agregar Producto</h3>
+              <form id="productForm" class="space-y-6">
                 <div class="relative">
-                    <input type="text" id="nombre" required class="peer w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none focus:border-blue-500 placeholder-gray-400" placeholder="Nombre">
-                    <label for="nombre" class="absolute left-3 top-3 text-gray-500 text-sm transition-all duration-200 peer-focus:top-[-10px] peer-focus:text-xs peer-focus:text-blue-600 peer-valid:top-[-10px] peer-valid:text-xs peer-valid:text-blue-600 bg-white px-1">Nombre del producto</label>
-                </div>
-                <div class="relative">
-                    <input type="text" id="descripcion" required class="peer w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none focus:border-blue-500 placeholder-gray-400" placeholder="Detalles">
-                    <label for="descripcion" class="absolute left-3 top-3 text-gray-500 text-sm transition-all duration-200 peer-focus:top-[-10px] peer-focus:text-xs peer-focus:text-blue-600 peer-valid:top-[-10px] peer-valid:text-xs peer-valid:text-blue-600 bg-white px-1">Descripción</label>
+                  <input type="text" id="nombre" required class="peer w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-purple-500 outline-none placeholder-gray-400" placeholder="Nombre">
+                  <label for="nombre" class="absolute left-3 top-3 text-gray-400 text-sm transition-all duration-200 peer-focus:top-[-10px] peer-focus:text-xs peer-focus:text-purple-400 peer-valid:top-[-10px] peer-valid:text-xs peer-valid:text-purple-400 bg-gray-900 px-1">Nombre del producto</label>
                 </div>
                 <div class="relative">
-                    <select id="categoria" required class="peer w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none focus:border-blue-500 bg-white text-gray-700">
-                        <option value="" disabled selected>Selecciona una categoría</option>
-                        <option value="pastilla">Pastilla</option>
-                        <option value="crema">Crema</option>
-                        <option value="inyeccion">Inyección</option>
-                    </select>
-                    <label for="categoria" class="absolute left-3 top-[-10px] text-xs text-blue-600 bg-white px-1">Categoría</label>
+                  <input type="text" id="descripcion" required class="peer w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-purple-500 outline-none placeholder-gray-400" placeholder="Detalles">
+                  <label for="descripcion" class="absolute left-3 top-3 text-gray-400 text-sm transition-all duration-200 peer-focus:top-[-10px] peer-focus:text-xs peer-focus:text-purple-400 peer-valid:top-[-10px] peer-valid:text-xs peer-valid:text-purple-400 bg-gray-900 px-1">Descripción</label>
                 </div>
                 <div class="relative">
-                    <input type="number" id="precio" required class="peer w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none focus:border-blue-500 placeholder-gray-400" placeholder="Precio">
-                    <label for="precio" class="absolute left-3 top-3 text-gray-500 text-sm transition-all duration-200 peer-focus:top-[-10px] peer-focus:text-xs peer-focus:text-blue-600 peer-valid:top-[-10px] peer-valid:text-xs peer-valid:text-blue-600 bg-white px-1">Precio</label>
+                  <select id="categoria" required class="peer w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-purple-500 outline-none">
+                    <option value="" disabled selected>Selecciona una categoría</option>
+                    <option value="pastilla">Pastilla</option>
+                    <option value="crema">Crema</option>
+                    <option value="inyeccion">Inyección</option>
+                  </select>
+                  <label for="categoria" class="absolute left-3 top-[-10px] text-xs text-purple-400 bg-gray-900 px-1">Categoría</label>
                 </div>
                 <div class="relative">
-                    <input type="number" id="stock" required class="peer w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none focus:border-blue-500 placeholder-gray-400" placeholder="Stock">
-                    <label for="stock" class="absolute left-3 top-3 text-gray-500 text-sm transition-all duration-200 peer-focus:top-[-10px] peer-focus:text-xs peer-focus:text-blue-600 peer-valid:top-[-10px] peer-valid:text-xs peer-valid:text-blue-600 bg-white px-1">Stock</label>
+                  <input type="number" id="precio" required class="peer w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-purple-500 outline-none placeholder-gray-400" placeholder="Precio">
+                  <label for="precio" class="absolute left-3 top-3 text-gray-400 text-sm transition-all duration-200 peer-focus:top-[-10px] peer-focus:text-xs peer-focus:text-purple-400 peer-valid:top-[-10px] peer-valid:text-xs peer-valid:text-purple-400 bg-gray-900 px-1">Precio</label>
                 </div>
                 <div class="relative">
-                    <input type="text" id="imagen" class="peer w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none focus:border-blue-500 placeholder-gray-400" placeholder="URL de la imagen">
-                    <label for="imagen" class="absolute left-3 top-3 text-gray-500 text-sm transition-all duration-200 peer-focus:top-[-10px] peer-focus:text-xs peer-focus:text-blue-600 peer-valid:top-[-10px] peer-valid:text-xs peer-valid:text-blue-600 bg-white px-1">URL de la imagen (opcional)</label>
+                  <input type="number" id="stock" required class="peer w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-purple-500 outline-none placeholder-gray-400" placeholder="Stock">
+                  <label for="stock" class="absolute left-3 top-3 text-gray-400 text-sm transition-all duration-200 peer-focus:top-[-10px] peer-focus:text-xs peer-focus:text-purple-400 peer-valid:top-[-10px] peer-valid:text-xs peer-valid:text-purple-400 bg-gray-900 px-1">Stock</label>
                 </div>
-                <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition-all shadow-md">Guardar Producto</button>
-            </form>
-        </div>
-
-        <select id="categoriaFiltro" class="...">
-            <option value="">-- Todos --</option>
-            <option value="pastilla">Pastilla</option>
-            <option value="crema">Crema</option>
-            <option value="inyeccion">Inyección</option>
-            <option value="conIVA">Con IVA</option>
-            <option value="agrupados">Agrupados</option>
-        </select>
-       
-
-        <div id="productosConIVAContainer" class="mt-6"></div>
-
-        <div id="agrupadosContainer" class="mt-8 max-w-2xl mx-auto"></div>
-        <!-- Modal de edición -->
-        <div id="modalEditar" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
-                <h2 class="text-xl font-bold mb-4 text-blue-700">Editar Producto</h2>
-                <form id="formEditar">
-                <input type="hidden" id="editId">
-
-                <div class="mb-4">
-                    <label for="editNombre" class="block text-sm font-medium">Nombre</label>
-                    <input type="text" id="editNombre" class="w-full border rounded px-3 py-2 mt-1" required>
+                <div class="relative">
+                  <input type="text" id="imagen" class="peer w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-purple-500 outline-none placeholder-gray-400" placeholder="URL de la imagen">
+                  <label for="imagen" class="absolute left-3 top-3 text-gray-400 text-sm transition-all duration-200 peer-focus:top-[-10px] peer-focus:text-xs peer-focus:text-purple-400 peer-valid:top-[-10px] peer-valid:text-xs peer-valid:text-purple-400 bg-gray-900 px-1">URL de la imagen (opcional)</label>
                 </div>
-
-                <div class="mb-4">
-                    <label for="editDescripcion" class="block text-sm font-medium">Descripción</label>
-                    <input type="text" id="editDescripcion" class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
-
-                <div class="mb-4">
-                    <label for="editCategoria" class="block text-sm font-medium">Categoría</label>
-                    <select id="editCategoria" class="w-full border rounded px-3 py-2 mt-1" required>
-                        <option value="pastilla">Pastilla</option>
-                        <option value="crema">Crema</option>
-                        <option value="inyecion">Inyección</option>
-                    </select>
-                </div>
-
-                <div class="mb-4">
-                    <label for="editPrecio" class="block text-sm font-medium">Precio</label>
-                    <input type="number" step="0.01" id="editPrecio" class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
-
-                <div class="mb-4">
-                    <label for="editStock" class="block text-sm font-medium">Stock</label>
-                    <input type="number" id="editStock" class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
-
-                <div class="flex justify-end space-x-2">
-                    <button type="button" id="cancelarEdicion" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
-                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Guardar</button>
-                </div>
-                </form>
+                <button type="submit" class="w-full bg-purple-600 text-white p-3 rounded-md hover:bg-purple-700 transition-all shadow-md">Guardar Producto</button>
+              </form>
             </div>
-        </div>
-
-         <div id="productosContainerF" class="grid md:grid-cols-3 gap-12 mt-8"></div>
-         
-        <!-- Sección de productos -->
-        <div id="productosContainer" class="grid md:grid-cols-3 gap-12 mt-8"></div>
+          
+            <select id="categoriaFiltro" class="mt-6 bg-gray-800 text-white border border-gray-600 p-2 rounded-md">
+              <option value="">-- Todos --</option>
+              <option value="pastilla">Pastilla</option>
+              <option value="crema">Crema</option>
+              <option value="inyeccion">Inyección</option>
+              <option value="conIVA">Con IVA</option>
+              <option value="agrupados">Agrupados</option>
+            </select>
+          
+            <div id="productosConIVAContainer" class="mt-6"></div>
+            <div id="agrupadosContainer" class="mt-8 max-w-2xl mx-auto"></div>
+          
+            <!-- Modal de edición -->
+            <div id="modalEditar" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+              <div class="bg-gray-800 p-6 rounded-xl shadow-md w-full max-w-md text-white">
+                <h2 class="text-xl font-bold mb-4 text-purple-300">Editar Producto</h2>
+                <form id="formEditar">
+                  <input type="hidden" id="editId">
+                  <div class="mb-4">
+                    <label for="editNombre" class="block text-sm font-medium">Nombre</label>
+                    <input type="text" id="editNombre" class="w-full border border-gray-600 rounded px-3 py-2 mt-1 bg-gray-700 text-white" required>
+                  </div>
+                  <div class="mb-4">
+                    <label for="editDescripcion" class="block text-sm font-medium">Descripción</label>
+                    <input type="text" id="editDescripcion" class="w-full border border-gray-600 rounded px-3 py-2 mt-1 bg-gray-700 text-white" required>
+                  </div>
+                  <div class="mb-4">
+                    <label for="editCategoria" class="block text-sm font-medium">Categoría</label>
+                    <select id="editCategoria" class="w-full border border-gray-600 rounded px-3 py-2 mt-1 bg-gray-700 text-white" required>
+                      <option value="pastilla">Pastilla</option>
+                      <option value="crema">Crema</option>
+                      <option value="inyeccion">Inyección</option>
+                    </select>
+                  </div>
+                  <div class="mb-4">
+                    <label for="editPrecio" class="block text-sm font-medium">Precio</label>
+                    <input type="number" step="0.01" id="editPrecio" class="w-full border border-gray-600 rounded px-3 py-2 mt-1 bg-gray-700 text-white" required>
+                  </div>
+                  <div class="mb-4">
+                    <label for="editStock" class="block text-sm font-medium">Stock</label>
+                    <input type="number" id="editStock" class="w-full border border-gray-600 rounded px-3 py-2 mt-1 bg-gray-700 text-white" required>
+                  </div>
+                  <div class="flex justify-end space-x-2">
+                    <button type="button" id="cancelarEdicion" class="bg-gray-500 px-4 py-2 rounded text-white hover:bg-gray-600">Cancelar</button>
+                    <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">Guardar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          
+            <div id="productosContainerF" class="grid md:grid-cols-3 gap-12 mt-8"></div>
+            <div id="productosContainer" class="grid md:grid-cols-3 gap-12 mt-8"></div>
+          </div>
+               
        
     </main>
 
