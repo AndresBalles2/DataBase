@@ -32,39 +32,49 @@
         </p>
     </div>
 
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-    
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-    
-            try {
-                const response = await fetch('http://localhost:5100/users/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, clave: password })
-                });
-    
-                const data = await response.json();
-                
-                if (response.ok) {
-                    console.log("Respuesta del servidor:", data);
-                    alert('Login exitoso');
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('nombreUsuario', data.email);
-                    window.location.href = 'index.html';
-                } else {
-                    console.error("Error del servidor:", data);
-                    document.getElementById('errorMessage').textContent = data.error || 'Error en el inicio de sesión';
-                    document.getElementById('errorMessage').classList.remove('hidden');
-                }
-            } catch (error) {
-                console.error("Error de conexión:", error);
-                document.getElementById('errorMessage').textContent = "No se pudo conectar con el servidor";
-                document.getElementById('errorMessage').classList.remove('hidden');
-            }
+   <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        try {
+        const response = await fetch('http://localhost:5100/users/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, clave: password })
         });
-    </script>
+
+        const data = await response.json();
+
+        if (response.ok) {
+            console.log("Respuesta del servidor:", data);
+            alert('Login exitoso');
+
+            // Decodificar el token DESPUÉS de recibirlo
+            const token = data.token;
+            const payloadBase64 = token.split('.')[1];
+            const payloadJSON = atob(payloadBase64);
+            const payload = JSON.parse(payloadJSON);
+
+            // Aquí asumimos que el nombre está en el payload como `nombre`
+            localStorage.setItem('token', token);
+            localStorage.setItem('nombreUsuario', payload.nombre || payload.email); // fallback a email si no hay nombre
+
+            window.location.href = 'index.html';
+        } else {
+            console.error("Error del servidor:", data);
+            document.getElementById('errorMessage').textContent = data.error || 'Error en el inicio de sesión';
+            document.getElementById('errorMessage').classList.remove('hidden');
+        }
+        } catch (error) {
+        console.error("Error de conexión:", error);
+        document.getElementById('errorMessage').textContent = "No se pudo conectar con el servidor";
+        document.getElementById('errorMessage').classList.remove('hidden');
+        }
+    });
+</script>
+
 </body>
 </html>

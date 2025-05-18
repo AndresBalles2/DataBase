@@ -15,6 +15,9 @@ route.get("/agrupados",productController.productosAgrupados);
 //productos proyectados con nuevas filas
 route.get("/proyectados", productController.getProductosProyectados);
 
+//Comprar producto
+route.put("/comprar/:id", productController.comprarProducto);
+
 //Filtrar por categoria
 route.get("/filtrar/:categoria", productController.filtrarProductosPorCategoria);
 

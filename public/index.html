@@ -6,7 +6,6 @@
     <title>Farmacia Salud Plus</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" type="image/png" href="./img/favicon.png">
   </head>
   <body class="h-screen bg-gradient-to-r from-gray-300 to-gray-600 font-sans">
@@ -17,15 +16,12 @@
       </span>
       
       <nav class="flex space-x-4">
-        <a href="./login.html" id="loginLink" class="relative px-6 py-2 text-lg font-medium group rounded-full hover:bg-gray-700 hover:text-purple-600 transition-all duration-500 ease-in-out">
-          <span class="relative z-10">Login</span>
-        </a>
-        <a href="./register.html" id="registerLink" class="relative px-6 py-2 text-lg font-medium group rounded-full hover:bg-gray-700 hover:text-purple-600 transition-all duration-500 ease-in-out">
-          <span class="relative z-10">Register</span>
-        </a>
-        <a href="#" id="logoutLink" onclick="logout()" class="relative px-6 py-2 text-lg font-medium group hidden rounded-full hover:bg-white hover:text-blue-600 transition-all duration-500 ease-in-out">
-          <span class="relative z-10">Cerrar Sesión</span>
-        </a>
+        <div class="flex items-center space-x-4">
+            <span id="nombreUsuario" class="relative px-6 py-2 text-lg font-medium group rounded-full hover:bg-gray-700 hover:text-purple-600 transition-all duration-500 ease-in-outhidden"></span>
+            <a id="loginLink" href="login.html" class="relative px-6 py-2 text-lg font-medium group rounded-full hover:bg-gray-700 hover:text-purple-600 transition-all duration-500 ease-in-out">Iniciar sesión</a>
+            <a id="registerLink" href="register.html" class="relative px-6 py-2 text-lg font-medium group rounded-full hover:bg-gray-700 hover:text-purple-600 transition-all duration-500 ease-in-out">Registrarse</a>
+            <button id="logoutLink" onclick="logout()" class="relative px-6 py-2 text-lg font-medium group hidden rounded-full hover:bg-white hover:text-blue-600 transition-all duration-500 ease-in-out hidden">Cerrar sesión</button>
+        </div>
       </nav>
     </header>
     
@@ -205,32 +201,25 @@
 
 
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const nombreUsuario = localStorage.getItem("nombreUsuario");
+     document.addEventListener("DOMContentLoaded", () => {
+    const nombreUsuario = localStorage.getItem("nombreUsuario");
 
-        if (nombreUsuario) {
-          document.getElementById("loginLink").classList.add("hidden");
-          document.getElementById("registerLink").classList.add("hidden");
-          document.getElementById("logoutLink").classList.remove("hidden");
-          document.getElementById("logoutLink").textContent = `Cerrar Sesión`;
-        }
-      });
+    if (nombreUsuario) {
+      document.getElementById("loginLink").classList.add("hidden");
+      document.getElementById("registerLink").classList.add("hidden");
+      document.getElementById("logoutLink").classList.remove("hidden");
 
-      function logout() {
-        localStorage.removeItem("token");
-        localStorage.removeItem("nombreUsuario");
-        window.location.reload();
-      }
+      const nombreSpan = document.getElementById("nombreUsuario");
+      nombreSpan.textContent = `Hola, ${nombreUsuario}`;
+      nombreSpan.classList.remove("hidden");
+    }
+  });
 
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['DM Sans', 'sans-serif'],
-            },
-          },
-        },
-      }
+  function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("nombreUsuario");
+    window.location.reload();
+  }
     </script>
   </body>
 </html>

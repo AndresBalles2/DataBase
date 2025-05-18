@@ -106,9 +106,33 @@ class ProductController {
             res.status(500).json({ error: "Error al filtrar productos", detalles: error.message });
         }
     }
+
+   async comprarProducto(req, res) {
+        try {
+            const { id } = req.params;
+            console.log('comprar producto:', id); 
+            // Verifica si el producto existe y tiene stock
+            const producto = await productsModel.getOneById(id);
+
+            if (!producto) {
+                return res.status(404).json({ error: "Producto no encontrado" });
+            }
+
+            if (producto.stock <= 0) {
+                return res.status(400).json({ error: "Sin stock disponible" });
+            }
+
+            // Resta uno al stock
+            producto.stock -= 1;
+            await producto.save();
+
+            res.status(200).json({ mensaje: "Compra realizada. Stock actualizado." });
+        } catch (error) {
+            res.status(500).json({ error: "Error al procesar la compra", detalles: error.message });
+        }
+    }
+
 };
      
     
-
-
 export default new ProductController();

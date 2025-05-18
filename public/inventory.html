@@ -168,7 +168,7 @@
                         <h3 class="text-2xl font-bold text-blue-700 text-center mb-4">Resumen por Categoría</h3>
                         <ul class="space-y-4">
                             ${productos.map(grupo => `
-                                <li class="bg-white p-4 rounded shadow flex justify-between">
+                                <li class="bg-white text-black p-4 rounded shadow flex justify-between">
                                     <span><strong>Categoría:</strong> ${grupo._id || 'Sin categoría'}</span>
                                     <span><strong>Total productos:</strong> ${grupo.totalProductos}</span>
                                     <span><strong>Stock total:</strong> ${grupo.totalStock}</span>
@@ -183,7 +183,7 @@
                 if (filtro === "conIVA") {
                     productos.forEach(prod => {
                         contenedor.innerHTML += `
-                            <div class="bg-white p-4 shadow rounded mb-3">
+                            <div class="bg-white text-black p-4 shadow rounded mb-3">
                                 <h4 class="font-semibold">${prod.nombre}</h4>
                                 <p>Categoría: ${prod.categoria}</p>
                                 <p>Precio: $${prod.precio}</p>
@@ -203,23 +203,36 @@
                 // Mostrar productos normales (getAll o por categoría)
                 productos.forEach(producto => {
                     const card = document.createElement("div");
-                    card.className = "bg-white p-6 shadow-xl rounded-lg text-center";
+
+                    // Asignar color según el stock
+                    let bgColor = "bg-white";
+                    if (producto.stock === 0) {
+                        bgColor = "bg-red-200";
+                    } else if (producto.stock < 4) {
+                        bgColor = "bg-orange-200";
+                    } else if (producto.stock < 8) {
+                        bgColor = "bg-yellow-100";
+                    }
+
+                    card.className = `${bgColor} p-6 shadow-xl rounded-lg text-center`;
+
                     card.innerHTML = `
                         <p class="text-gray-600 text-lg">${producto.categoria}</p>
                         <img src="${producto.imagen || './img/default.jpg'}" class="w-full h-40 object-cover rounded-md" />
                         <h3 class="text-2xl font-bold mt-4">${producto.nombre}</h3>
                         <p class="text-gray-600 text-lg">${producto.descripcion}</p>
-                        <p class="text-xl font-semibold text-green-600 mt-2">${producto.precio}</p>
+                        <p class="text-xl font-semibold text-green-600 mt-2">$${producto.precio}</p>
                         <p class="text-gray-500 text-sm">Stock: ${producto.stock}</p>
                         <button onclick="eliminarProducto('${producto._id}', '${producto.nombre}')"
                             class="mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700">
                             Eliminar
                         </button>
                         <button onclick="abrirEdicion('${producto._id}', '${producto.nombre}', '${producto.categoria}', '${producto.descripcion}', ${producto.precio}, ${producto.stock})" 
-                            class="mt-4 bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-red-700">
+                            class="mt-4 bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-700">
                             Editar
                         </button>
                     `;
+
                     contenedor.appendChild(card);
                 });
 
