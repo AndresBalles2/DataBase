@@ -23,6 +23,36 @@ async function mostrarCarrito() {
     });
 }
 
+async function generarFacturaEmergente(nombreCliente, productos) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text("Factura - Farmacia Salud Plus", 20, 20);
+
+    doc.setFontSize(12);
+    doc.text(`Cliente: ${nombreCliente}`, 20, 35);
+    doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 20, 45);
+    doc.text("Productos:", 20, 55);
+
+    let y = 65;
+    let total = 0;
+
+    productos.forEach((p, index) => {
+        const subtotal = p.precio;
+        total += subtotal;
+        doc.text(`${index + 1}. ${p.nombre} - $${p.precio}`, 20, y);
+        y += 10;
+    });
+
+    doc.setFontSize(14);
+    doc.text(`Total a pagar: $${total}`, 20, y + 10);
+
+    const pdfBlob = doc.output("blob");
+    const blobUrl = URL.createObjectURL(pdfBlob);
+    window.open(blobUrl, "_blank");
+}
+
 async function finalizarCompra() {
     const usuario = localStorage.getItem("nombreUsuario");
     const token = localStorage.getItem("token");
@@ -35,16 +65,21 @@ async function finalizarCompra() {
 
     const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
+    const detalles = await Promise.all(carrito.map(id =>
+        fetch(`http://localhost:5100/products/${id}`).then(res => res.json())
+    ));
+
     for (const id of carrito) {
         await fetch(`http://localhost:5100/products/comprar/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                // opcional: si en el backend estás usando autenticación por token
                 "Authorization": `Bearer ${token}`
             }
         });
     }
+
+    await generarFacturaEmergente(usuario, detalles);
 
     localStorage.removeItem("carrito");
     alert(`Gracias por tu compra, ${usuario}`);
@@ -52,3 +87,4 @@ async function finalizarCompra() {
 }
 
 document.addEventListener("DOMContentLoaded", mostrarCarrito);
+
