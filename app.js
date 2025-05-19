@@ -2,6 +2,7 @@ import express from 'express';
 import 'dotenv/config'
 import routesUsers from './routes/user.js'
 import routesProducts from './routes/producto.js'
+import routesCompras from './routes/compra.js'
 import bodyParser from 'body-parser';
 const app= express();
 import dbClient from './config/dbClient.js';
@@ -12,6 +13,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static('public'));
 app.use('/users',routesUsers)
 app.use('/products',routesProducts)
+app.use('/compras',routesCompras)
 
 try {
     const PORT= process.env.PORT || 3000;
