@@ -1,9 +1,9 @@
 import express from 'express';
-import compraController from '../controllers/compras';
+import compraController from '../controllers/compras.js';
 const route = express.Router();
 
 
-route.post('/compras', compraController.registrarCompra);
-route.get('/compras', compraController.obtenerCompras);
+route.post('/create', compraController.create);
+route.get('/getAll', compraController.getAll);
 
-module.exports = router;
+export default route;

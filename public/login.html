@@ -47,7 +47,7 @@
         });
 
         const data = await response.json();
-
+        console.log("Respuesta del servidorrrrr:", data)
         if (response.ok) {
             console.log("Respuesta del servidor:", data);
             alert('Login exitoso');
@@ -57,10 +57,11 @@
             const payloadBase64 = token.split('.')[1];
             const payloadJSON = atob(payloadBase64);
             const payload = JSON.parse(payloadJSON);
-
+            
             // Aquí asumimos que el nombre está en el payload como `nombre`
             localStorage.setItem('token', token);
             localStorage.setItem('nombreUsuario', payload.nombre || payload.email); // fallback a email si no hay nombre
+            localStorage.setItem('usuarioId', payload._id);
 
             window.location.href = 'index.html';
         } else {

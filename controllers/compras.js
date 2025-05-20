@@ -1,4 +1,4 @@
-import comprasModel from '../models/compras.js';
+import comprasModel from '../models/compra.js';
 
 class CompraController {
     constructor() {}

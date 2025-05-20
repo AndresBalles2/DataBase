@@ -39,7 +39,7 @@ class userController{
         if(!claveValida){
             return res.status(400).json({error:"clave no valida"})
         }
-        const token = generarToken(email);
+        const token = generarToken(usuarioExiste);
 
         return res.status(200).json({msg:"usuario autenticado",token})
 
