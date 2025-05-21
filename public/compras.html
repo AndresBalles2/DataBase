@@ -1,61 +1,80 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Detalle de Compras</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <title>Detalle de Compras</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+    }
+  </style>
 </head>
-<body class="p-10 bg-gray-100">
-    <h1 class="text-2xl font-bold mb-6">Productos comprados</h1>
+<body class="bg-gray-900 text-white min-h-screen p-8">
 
-    <table class="min-w-full bg-white border rounded-lg shadow">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-4xl font-bold text-purple-400 mb-10 text-center">🧾 Productos Comprados</h1>
+
+    <div class="overflow-x-auto bg-gray-800 rounded-2xl shadow-xl">
+      <table class="min-w-full text-sm">
         <thead>
-            <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                <th class="py-3 px-6 text-left">ID Compra</th>
-                <th class="py-3 px-6 text-left">Fecha</th>
-                <th class="py-3 px-6 text-left">Producto</th>
-                <th class="py-3 px-6 text-left">Categoría</th>
-                <th class="py-3 px-6 text-left">Cantidad</th>
-                <th class="py-3 px-6 text-left">Precio Unitario</th>
-                <th class="py-3 px-6 text-left">Subtotal</th>
-            </tr>
+          <tr class="bg-purple-700 text-white uppercase text-xs tracking-wider">
+            <th class="py-4 px-6 text-left">ID Compra</th>
+            <th class="py-4 px-6 text-left">Fecha</th>
+            <th class="py-4 px-6 text-left">Producto</th>
+            <th class="py-4 px-6 text-left">Categoría</th>
+            <th class="py-4 px-6 text-left">Cantidad</th>
+            <th class="py-4 px-6 text-left">Precio Unitario</th>
+            <th class="py-4 px-6 text-left">Subtotal</th>
+          </tr>
         </thead>
-        <tbody id="comprasBody" class="text-gray-600 text-sm font-light">
-            <!-- Aquí se insertan las filas -->
+        <tbody id="comprasBody" class="text-gray-300 divide-y divide-gray-700">
+          <!-- Filas generadas dinámicamente -->
         </tbody>
-    </table>
+      </table>
+    </div>
 
-    <script>
-        async function cargarCompras() {
-            try {
-                const userId = localStorage.getItem("usuarioId"); 
-                const response = await fetch(`http://localhost:5100/compras/productos?usuario=${userId}`);
-                const compras = await response.json();
+    <div class="mt-10 text-center">
+      <a href="index.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl shadow-md transition">
+        <i class="fas fa-home mr-2"></i>Volver al inicio
+      </a>
+    </div>
+  </div>
 
-                const tbody = document.getElementById('comprasBody');
-                compras.forEach(compra => {
-                    const row = document.createElement('tr');
-                    row.classList.add("border-b", "border-gray-200", "hover:bg-gray-100");
+  <script>
+    async function cargarCompras() {
+      try {
+        const userId = localStorage.getItem("usuarioId");
+        const response = await fetch(`http://localhost:5100/compras/productos?usuario=${userId}`);
+        const compras = await response.json();
 
-                    const fechaFormateada = new Date(compra.fecha).toLocaleString("es-CO");
+        const tbody = document.getElementById('comprasBody');
+        compras.forEach(compra => {
+          const row = document.createElement('tr');
+          row.classList.add("hover:bg-gray-700", "transition");
 
-                    row.innerHTML = `
-                        <td class="py-3 px-6">${compra._id}</td>
-                        <td class="py-3 px-6">${fechaFormateada}</td>
-                        <td class="py-3 px-6">${compra.producto}</td>
-                        <td class="py-3 px-6">${compra.categoria}</td>
-                        <td class="py-3 px-6">${compra.cantidad}</td>
-                        <td class="py-3 px-6">$${compra.precioUnitario}</td>
-                        <td class="py-3 px-6">$${compra.subtotal}</td>
-                    `;
-                    tbody.appendChild(row);
-                });
-            } catch (error) {
-                console.error("Error al cargar las compras:", error);
-            }
-        }
+          const fechaFormateada = new Date(compra.fecha).toLocaleString("es-CO");
 
-        cargarCompras();
-    </script>
+          row.innerHTML = `
+            <td class="py-4 px-6">${compra._id}</td>
+            <td class="py-4 px-6">${fechaFormateada}</td>
+            <td class="py-4 px-6">${compra.producto}</td>
+            <td class="py-4 px-6">${compra.categoria}</td>
+            <td class="py-4 px-6">${compra.cantidad}</td>
+            <td class="py-4 px-6">$${compra.precioUnitario}</td>
+            <td class="py-4 px-6">$${compra.subtotal}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (error) {
+        console.error("Error al cargar las compras:", error);
+      }
+    }
+
+    cargarCompras();
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
 </body>
 </html>
