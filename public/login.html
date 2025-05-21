@@ -58,10 +58,10 @@
             const payloadJSON = atob(payloadBase64);
             const payload = JSON.parse(payloadJSON);
             
-            // Aquí asumimos que el nombre está en el payload como `nombre`
             localStorage.setItem('token', token);
             localStorage.setItem('nombreUsuario', payload.nombre || payload.email); // fallback a email si no hay nombre
             localStorage.setItem('usuarioId', payload._id);
+            localStorage.setItem("tipoUsuario", payload.tipo);
 
             window.location.href = 'index.html';
         } else {
@@ -70,9 +70,8 @@
             document.getElementById('errorMessage').classList.remove('hidden');
         }
         } catch (error) {
-        console.error("Error de conexión:", error);
-        document.getElementById('errorMessage').textContent = "No se pudo conectar con el servidor";
-        document.getElementById('errorMessage').classList.remove('hidden');
+            console.error("Error de conexión:", error);
+            window.location.href = 'index.html';
         }
     });
 </script>

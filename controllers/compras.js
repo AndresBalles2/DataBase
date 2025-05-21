@@ -12,10 +12,13 @@ class CompraController {
                 return res.status(400).json({ error: "Faltan datos requeridos" });
             }
 
+            const total = productos.reduce((suma, p) => suma + (p.precioUnitario * p.cantidad), 0);
+
             const nuevaCompra = await comprasModel.create({
                 usuarioId,
                 nombreUsuario,
                 productos,
+                total, 
                 fecha: new Date()
             });
 
@@ -51,6 +54,16 @@ class CompraController {
         } catch (error) {
             console.error("Error al obtener la compra:", error);
             res.status(500).json({ error: "Error al obtener la compra", detalles: error.message });
+        }
+    }
+
+    async obtenerProductosDeCompras(req, res) {
+        try {
+            const productosIndividuales = await comprasModel.comprasConProductosIndividuales();
+            res.status(200).json(productosIndividuales);
+        } catch (error) {
+            console.error("Error al obtener compras:", error);
+            res.status(500).json({ error: "Error interno del servidor" });
         }
     }
 }

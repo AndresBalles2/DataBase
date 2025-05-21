@@ -116,7 +116,11 @@
     </main>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
+        const tipoUsuario = localStorage.getItem("tipoUsuario");
+
+        if (tipoUsuario === "admin") {
+             document.addEventListener("DOMContentLoaded", () => {
             cargarProductos();
         });
 
@@ -365,6 +369,9 @@
                     // alert("No se pudo conectar con el servidor");
                 }
             }
+        }
+    });
+       
 
     </script>
 </body>

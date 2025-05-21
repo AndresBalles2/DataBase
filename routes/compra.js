@@ -5,5 +5,6 @@ const route = express.Router();
 
 route.post('/create', compraController.create);
 route.get('/getAll', compraController.getAll);
+route.get('/productos', compraController.obtenerProductosDeCompras);
 
 export default route;

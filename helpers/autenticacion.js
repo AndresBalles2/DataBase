@@ -6,7 +6,8 @@ export function generarToken(usuario) {
         {
             _id: usuario._id,
             nombre: usuario.nombre,
-            email: usuario.email
+            email: usuario.email,
+            tipo: usuario.tipo
         },
         process.env.JWT_TOKEN_SEC,
         { expiresIn: '1h' }

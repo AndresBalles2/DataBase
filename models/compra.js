@@ -35,6 +35,40 @@ class compraModel {
     async getComprasPorUsuario(usuarioId) {
         return await Compra.find({ usuarioId });
     }
+
+    async comprasConProductosIndividuales() {
+        return await Compra.aggregate([
+            {
+                $unwind: "$productos"  // Descompone el array 'productos'
+            },
+            {
+                $lookup: {
+                    from: "products", // nombre real de la colección de productos
+                    localField: "productos.productoId",
+                    foreignField: "_id",
+                    as: "productoDetalles"
+                }
+            },
+            {
+                $unwind: "$productoDetalles" // Descompone el resultado del $lookup (siempre será un array)
+            },
+            {
+                $project: {
+                    _id: 1,
+                    usuario: 1,
+                    fecha: 1,
+                    "producto": "$productoDetalles.nombre",
+                    "categoria": "$productoDetalles.categoria",
+                    "cantidad": "$productos.cantidad",
+                    "precioUnitario": "$productos.precioUnitario",
+                    "subtotal": {
+                        $multiply: ["$productos.cantidad", "$productos.precioUnitario"]
+                    }
+                }
+            }
+        ]);
+    }
+
 }
 
 export default new compraModel();

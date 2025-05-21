@@ -1,5 +1,6 @@
 async function mostrarCarrito() {
     const container = document.getElementById("carritoContainer");
+    container.innerHTML = ""; // Limpiar contenido anterior
     const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
     if (carrito.length === 0) {
@@ -11,17 +12,29 @@ async function mostrarCarrito() {
         fetch(`http://localhost:5100/products/${id}`).then(res => res.json())
     ));
 
-    detalles.forEach(prod => {
+    detalles.forEach((prod, index) => {
         const div = document.createElement("div");
-        div.className = "bg-white p-4 shadow rounded mb-3";
+        div.className = "bg-white p-4 shadow rounded mb-3 flex justify-between items-center";
         div.innerHTML = `
-            <h4 class="text-xl font-bold">${prod.nombre}</h4>
-            <p>Precio: $${prod.precio}</p>
-            <p>Stock actual: ${prod.stock}</p>
+            <div>
+                <h4 class="text-xl font-bold">${prod.nombre}</h4>
+                <p>Precio: $${prod.precio}</p>
+                <p>Stock actual: ${prod.stock}</p>
+            </div>
+            <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600" onclick="eliminarDelCarrito(${index})">
+                Eliminar
+            </button>
         `;
         container.appendChild(div);
     });
 }
+async function eliminarDelCarrito(index) {
+    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    carrito.splice(index, 1); // Elimina el producto por su índice
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    mostrarCarrito(); // Recargar la vista del carrito
+}
+
 
 async function generarFacturaEmergente(nombreCliente, productos) {
     const { jsPDF } = window.jspdf;
@@ -55,9 +68,10 @@ async function generarFacturaEmergente(nombreCliente, productos) {
 
 async function finalizarCompra() {
     const usuario = localStorage.getItem("nombreUsuario");
+    const usuarioId = localStorage.getItem("usuarioId");
     const token = localStorage.getItem("token");
 
-    if (!usuario || !token) {
+    if (!usuario || !token || !usuarioId) {
         alert("Debes iniciar sesión para finalizar la compra.");
         window.location.href = "login.html";
         return;
@@ -69,6 +83,7 @@ async function finalizarCompra() {
         fetch(`http://localhost:5100/products/${id}`).then(res => res.json())
     ));
 
+    // Actualizar stock
     for (const id of carrito) {
         await fetch(`http://localhost:5100/products/comprar/${id}`, {
             method: "PUT",
@@ -78,6 +93,31 @@ async function finalizarCompra() {
             }
         });
     }
+
+    // Calcular total
+    const productosCompra = detalles.map(prod => ({
+        productoId: prod._id,
+        nombre: prod.nombre,
+        cantidad: 1,
+        precioUnitario: prod.precio
+    }));
+
+    const total = productosCompra.reduce((sum, p) => sum + p.precioUnitario, 0);
+
+    // Guardar en la base de datos
+    await fetch("http://localhost:5100/compras/create", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            usuarioId,
+            nombreUsuario: usuario,
+            productos: productosCompra,
+            total
+        })
+    });
 
     await generarFacturaEmergente(usuario, detalles);
 
