@@ -42,6 +42,10 @@
                 <input type="password" id="clave" class="peer w-full p-4 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none text-lg placeholder-transparent" placeholder=" " required>
                 <label for="clave" class="absolute left-3 top-3 text-gray-500 text-lg transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-lg peer-placeholder-shown:text-gray-400 peer-focus:top-1 peer-focus:text-sm peer-focus:text-purple-400 peer-valid:top-1 peer-valid:text-sm peer-valid:text-purple-400 bg-white px-1">Contraseña</label>
             </div>
+            <div class="relative">
+                <input type="password" id="confirmarClave" class="peer w-full p-4 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none text-lg placeholder-transparent" placeholder=" " required>
+                <label for="confirmarClave" class="absolute left-3 top-3 text-gray-500 text-lg transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-lg peer-placeholder-shown:text-gray-400 peer-focus:top-1 peer-focus:text-sm peer-focus:text-purple-400 peer-valid:top-1 peer-valid:text-sm peer-valid:text-purple-400 bg-white px-1">Confirmar Contraseña</label>
+            </div>
             
             <button type="submit" class="w-full bg-gray-500 text-purple-400 p-3 rounded-lg hover:bg-gray-900 text-lg transition-all">Registrarse</button>
         </form>
@@ -61,11 +65,17 @@
         const telefono = document.getElementById("telefono").value;
         const tipo = document.getElementById("tipo").value;
         const clave = document.getElementById("clave").value;
+        const confirmarClave = document.getElementById("confirmarClave").value;
 
         const regexClave = /^(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
 
         if (!regexClave.test(clave)) {
             alert("La contraseña debe tener al menos 8 caracteres, un número y un carácter especial.");
+            return;
+        }
+        
+        if (clave !== confirmarClave) {
+            alert("Las contraseñas no coinciden.");
             return;
         }
 
