@@ -44,6 +44,14 @@
 
   <script>
     async function cargarCompras() {
+      const userId = localStorage.getItem("usuarioId");
+      const token = localStorage.getItem("token");
+
+      if (!userId || !token) {
+        alert("Debes iniciar sesión para ver tus compras.");
+        window.location.href = "login.html";
+        return;
+      }
       try {
         const userId = localStorage.getItem("usuarioId");
         const response = await fetch(`http://localhost:5100/compras/productos?usuario=${userId}`);
