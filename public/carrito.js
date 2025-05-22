@@ -78,6 +78,10 @@ async function finalizarCompra() {
     }
 
     const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    if (carrito.length === 0) {
+        alert("Tu carrito está vacío. Agrega productos antes de finalizar la compra.");
+        return;
+    }
 
     const detalles = await Promise.all(carrito.map(id =>
         fetch(`http://localhost:5100/products/${id}`).then(res => res.json())
