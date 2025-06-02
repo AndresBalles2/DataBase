@@ -57,9 +57,14 @@ class CompraController {
         }
     }
 
-    async obtenerProductosDeCompras(req, res) {
+   async obtenerProductosDeCompras(req, res) {
         try {
-            const productosIndividuales = await comprasModel.comprasConProductosIndividuales();
+            const usuarioId = req.query.usuario;
+            if (!usuarioId) {
+                return res.status(400).json({ error: "Falta el ID del usuario." });
+            }
+
+            const productosIndividuales = await comprasModel.comprasConProductosIndividualesPorUsuario(usuarioId);
             res.status(200).json(productosIndividuales);
         } catch (error) {
             console.error("Error al obtener compras:", error);
