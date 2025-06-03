@@ -7,12 +7,14 @@ const productSchema = new Schema({
         type: String,
         required: true,
         trim: true,
-        index: true
+        index: true,
+        minlength: [3, "El nombre debe tener al menos 3 caracteres"]
     },
     descripcion: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        maxlength: [150, "La descripción es muy larga"]
     },
     categoria: { 
         type: String,
@@ -21,11 +23,13 @@ const productSchema = new Schema({
     },
     precio: {
         type: Number,
-        required: true
+        required: true,
+        min: [0, "El precio no puede ser negativo"]
     },
     stock: {
         type: Number,
-        required: true
+        required: true,
+        min: [0, "El stock no puede ser negativo"]
     },
     imagen: {
         type: String,

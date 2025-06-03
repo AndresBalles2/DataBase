@@ -227,15 +227,27 @@
                         <p class="text-gray-600 text-lg">${producto.descripcion}</p>
                         <p class="text-xl font-semibold text-green-600 mt-2">$${producto.precio}</p>
                         <p class="text-gray-500 text-sm">Stock: ${producto.stock}</p>
-                        <button onclick="eliminarProducto('${producto._id}', '${producto.nombre}')"
-                            class="mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700">
+                        <button class="btn-eliminar mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700">
                             Eliminar
                         </button>
-                        <button onclick="abrirEdicion('${producto._id}', '${producto.nombre}', '${producto.categoria}', '${producto.descripcion}', ${producto.precio}, ${producto.stock})" 
-                            class="mt-4 bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-700">
+                        <button class="btn-editar mt-4 bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-700">
                             Editar
                         </button>
                     `;
+                     card.querySelector(".btn-eliminar").addEventListener("click", () => {
+                        eliminarProducto(producto._id, producto.nombre);
+                    });
+
+                    card.querySelector(".btn-editar").addEventListener("click", () => {
+                        abrirEdicion(
+                            producto._id,
+                            producto.nombre,
+                            producto.categoria,
+                            producto.descripcion,
+                            producto.precio,
+                            producto.stock
+                        );
+                    });
 
                     contenedor.appendChild(card);
                 });
@@ -309,14 +321,14 @@
             
        
             function abrirEdicion(id, nombre, categoria, descripcion, precio, stock) {
-                document.getElementById("modalEditar").classList.remove("hidden");
-
                 document.getElementById("editId").value = id;
                 document.getElementById("editNombre").value = nombre;
                 document.getElementById("editDescripcion").value = descripcion;
                 document.getElementById("editCategoria").value = categoria;
                 document.getElementById("editPrecio").value = precio;
                 document.getElementById("editStock").value = stock;
+
+                document.getElementById("modalEditar").classList.remove("hidden");
             }
 
             //#################### Cerrar modal ###########################################

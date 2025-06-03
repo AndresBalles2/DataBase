@@ -48,7 +48,7 @@ class compraModel {
             },
             {
                 $lookup: {
-                    from: "products", //
+                    from: "products", 
                     localField: "productos.productoId",
                     foreignField: "_id",
                     as: "productoDetalles"
