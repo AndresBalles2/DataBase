@@ -160,7 +160,7 @@
                          url = `http://localhost:5100/products/filtrar/crema`;
                         break;
                     case "inyeccion":
-                        url = `http://localhost:5100/products/filtrar/inyección`;
+                        url = `http://localhost:5100/products/filtrar/inyeccion`;
                         break;
                     default:
                         url = "http://localhost:5100/products/getAll";
@@ -229,7 +229,7 @@
                     card.innerHTML = `
                         <p class="text-gray-600 text-lg">${producto.categoria}</p>
                         <img src="${producto.imagen || './img/default.jpg'}" class="w-full h-40 object-cover rounded-md" />
-                        <h3 class="text-2xl font-bold mt-4">${producto.nombre}</h3>
+                        <h3 class="text-2xl font-bold mt-4 text-gray-600 ">${producto.nombre}</h3>
                         <p class="text-gray-600 text-lg">${producto.descripcion}</p>
                         <p class="text-xl font-semibold text-green-600 mt-2">$${producto.precio}</p>
                         <p class="text-gray-500 text-sm">Stock: ${producto.stock}</p>
@@ -371,6 +371,7 @@
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(productoActualizado)
                         });
+                        cargarProductos(filtro = "getAll")
 
                         if (response.ok) {
                             const productoRespuesta = await response.json();

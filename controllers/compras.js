@@ -71,6 +71,23 @@ class CompraController {
             res.status(500).json({ error: "Error interno del servidor" });
         }
     }
+
+    async obtenerHistorial(req, res) {
+    try {
+        const tipoUsuario = req.query.tipo; 
+
+        if (tipoUsuario !== "admin") {
+            return res.status(403).json({ error: "Acceso no autorizado. Solo administradores." });
+        }
+
+        const historial = await comprasModel.historialCompras(); 
+        res.status(200).json(historial);
+    } catch (error) {
+        console.error("Error al obtener historial completo de compras:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
+    }
+}
+
 }
 
 export default new CompraController();

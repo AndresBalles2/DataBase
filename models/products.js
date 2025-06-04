@@ -73,6 +73,7 @@ class productModel {
             {
                 $project: {
                     nombre: 1,
+                    descripcion:1,
                     categoria: 1,
                     precio: 1,
                     stock: 1

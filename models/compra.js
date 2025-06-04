@@ -73,6 +73,77 @@ class compraModel {
             }
         ]);
     }
+    
+    async comprasConProductosIndividualesPorUsuario(usuarioId) {
+        return await Compra.aggregate([
+            {
+                $match: { usuarioId: new mongoose.Types.ObjectId(usuarioId) }
+            },
+            {
+                $unwind: "$productos"
+            },
+            {
+                $lookup: {
+                    from: "products", 
+                    localField: "productos.productoId",
+                    foreignField: "_id",
+                    as: "productoDetalles"
+                }
+            },
+            {
+                $unwind: "$productoDetalles"
+            },
+            {
+                $project: {
+                    _id: 1,
+                    usuarioId: 1,
+                    fecha: 1,
+                    producto: "$productoDetalles.nombre",
+                    categoria: "$productoDetalles.categoria",
+                    cantidad: "$productos.cantidad",
+                    precioUnitario: "$productos.precioUnitario",
+                    subtotal: {
+                        $multiply: ["$productos.cantidad", "$productos.precioUnitario"]
+                    }
+                }
+            }
+        ]);
+    }
+
+    async historialCompras() {
+        return await Compra.aggregate([
+            {
+                $unwind: "$productos"
+            },
+            {
+                $lookup: {
+                    from: "products",
+                    localField: "productos.productoId",
+                    foreignField: "_id",
+                    as: "productoDetalles"
+                }
+            },
+            {
+                $unwind: "$productoDetalles"
+            },
+            {
+                $project: {
+                    _id: 1,
+                    usuarioId: 1, // Incluye el ID del usuario que compró
+                    fecha: 1,
+                    producto: "$productoDetalles.nombre",
+                    categoria: "$productoDetalles.categoria",
+                    cantidad: "$productos.cantidad",
+                    precioUnitario: "$productos.precioUnitario",
+                    subtotal: {
+                        $multiply: ["$productos.cantidad", "$productos.precioUnitario"]
+                    }
+                }
+            }
+        ]);
+    }
+
+
 
 }
 

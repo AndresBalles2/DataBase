@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle de Compras</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen p-8">
+
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-4xl font-bold text-purple-400 mb-10 text-center">🧾 Facturas </h1>
+
+    <div class="overflow-x-auto bg-gray-800 rounded-2xl shadow-xl">
+      <table class="min-w-full text-sm">
+        <thead>
+          <tr class="bg-purple-700 text-white uppercase text-xs tracking-wider">
+            <th class="py-4 px-6 text-left">ID Compra</th>
+            <th class="py-4 px-6 text-left">nombre comprador</th>
+            <th class="py-4 px-6 text-left">fecha</th>
+            <th class="py-4 px-6 text-left">producto</th>
+            <th class="py-4 px-6 text-left">Cantidad</th>
+            <th class="py-4 px-6 text-left">Precio Unitario</th>
+            <th class="py-4 px-6 text-left">total</th>
+          </tr>
+        </thead>
+        <tbody id="comprasBody" class="text-gray-300 divide-y divide-gray-700">
+          <!-- Filas generadas dinámicamente -->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-10 text-center">
+      <a href="index.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl shadow-md transition">
+        <i class="fas fa-home mr-2"></i>Volver al inicio
+      </a>
+    </div>
+  </div>
+
+  <script>
+    async function cargarHistorial() {
+        const token = localStorage.getItem("token");
+        const tipoUsuario = localStorage.getItem("tipoUsuario");
+
+        if (!token || tipoUsuario !== "admin") {
+        alert("Debes iniciar sesión como admin para ver el historial.");
+        window.location.href = "login.html";
+        return;
+        }
+
+        try {
+        const response = await fetch("http://localhost:5100/compras/getAll");
+
+        if (!response.ok) {
+            throw new Error("Error al obtener el historial");
+        }
+
+        const compras = await response.json();
+        const tbody = document.getElementById('comprasBody');
+        tbody.innerHTML = ''; // Limpia el contenido anterior
+
+        compras.forEach(compra => {
+            const fechaFormateada = new Date(compra.fecha).toLocaleString("es-CO");
+
+            // Crea una fila por cada producto individual
+            compra.productos.forEach(producto => {
+            const row = document.createElement('tr');
+            row.classList.add("hover:bg-gray-700", "transition");
+
+            const subtotal = producto.cantidad * producto.precioUnitario;
+
+            row.innerHTML = `
+                <td class="py-4 px-6">${compra._id}</td>
+                <td class="py-4 px-6">${compra.nombreUsuario}</td>
+                <td class="py-4 px-6">${fechaFormateada}</td>
+                <td class="py-4 px-6">${producto.nombre}</td>
+                <td class="py-4 px-6">${producto.cantidad}</td>
+                <td class="py-4 px-6">$${producto.precioUnitario}</td>
+                <td class="py-4 px-6">$${compra.total}</td>
+            `;
+
+            tbody.appendChild(row);
+            });
+        });
+
+        } catch (error) {
+        console.error("Error al cargar el historial:", error);
+        }
+    }
+
+  cargarHistorial();
+</script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+</body>
+</html>

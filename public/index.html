@@ -20,6 +20,7 @@
       <nav class="flex space-x-4">
         <div class="flex items-center space-x-4">
             <a id="carritoLink" href="carrito.html" class="relative px-6 py-2 text-lg font-medium group rounded-full hover:bg-gray-700 hover:text-purple-600 transition-all duration-500 ease-in-outhidden">Carrito</a>
+            <a id="compraLink" href="comprasadmin.html" class="relative px-6 py-2 text-lg font-medium group rounded-full hover:bg-gray-700 hover:text-purple-600 transition-all duration-500 ease-in-outhidden">Historial</a>
             <span id="nombreUsuario" class="relative px-6 py-2 text-lg font-medium group rounded-full hover:bg-gray-700 hover:text-purple-600 transition-all duration-500 ease-in-outhidden"></span>
             <a id="loginLink" href="login.html" class="relative px-6 py-2 text-lg font-medium group rounded-full hover:bg-gray-700 hover:text-purple-600 transition-all duration-500 ease-in-out">Iniciar sesión</a>
             <a id="registerLink" href="register.html" class="relative px-6 py-2 text-lg font-medium group rounded-full hover:bg-gray-700 hover:text-purple-600 transition-all duration-500 ease-in-out">Registrarse</a>
@@ -218,17 +219,29 @@
     <script>
      document.addEventListener("DOMContentLoaded", () => {
       const nombreUsuario = localStorage.getItem("nombreUsuario");
-
-      if (nombreUsuario) {
+      const tipoUsuario = localStorage.getItem("tipoUsuario")
+      if (nombreUsuario && tipoUsuario=="cliente") {
         document.getElementById("loginLink").classList.add("hidden");
         document.getElementById("registerLink").classList.add("hidden");
         document.getElementById("logoutLink").classList.remove("hidden");
-         document.getElementById("carritoLink").classList.remove("hidden");
+        document.getElementById("carritoLink").classList.remove("hidden");
 
         const nombreSpan = document.getElementById("nombreUsuario");
         nombreSpan.textContent = `Hola, ${nombreUsuario}`;
         nombreSpan.classList.remove("hidden");
       }
+      if (nombreUsuario && tipoUsuario=="admin") {
+        document.getElementById("loginLink").classList.add("hidden");
+        document.getElementById("registerLink").classList.add("hidden");
+        document.getElementById("logoutLink").classList.remove("hidden");
+        document.getElementById("compraLink").classList.remove("hidden");
+         document.getElementById("carritoLink").classList.add("hidden");
+
+        const nombreSpan = document.getElementById("nombreUsuario");
+        nombreSpan.textContent = `Hola, ${nombreUsuario}`;
+        nombreSpan.classList.remove("hidden");
+      }
+
     });
 
   function logout() {
