@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Farmacia Salud Plus</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="./img/favicon.png">
   </head>
@@ -157,28 +159,37 @@
 
 <!-- Contenedor del Footer -->
 <div class="p-12 bg-gradient-to-r from-gray-300 to-gray-600 flex justify-center">
-  <footer class="bg-gradient-to-r from-gray-800 to-gray-900 text-purple-400 text-center p-20 w-full max-w-8xl rounded-2xl shadow-2xl">
+  <footer class="bg-gradient-to-r from-gray-800 to-gray-900 text-purple-400 text-center p-20 w-50 max-w-9xl rounded-2xl shadow-2xl space-y-12">
+
     <!-- Primera Fila -->
-    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
-      
-      <!-- Sección de Contacto -->
-      <div>
-        <h3 class="text-xl font-bold">📞 Contacto</h3>
-        <p class="text-purple-400">Tel: +57 300 123 4567</p>
-        <p class="text-purple-400">Email: contacto@farmaciasaludplus.com</p>
+    <div class="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto text-left">
+
+      <!-- Acerca de -->
+      <div class="space-y-4">
+        <h3 class="text-2xl font-bold">🏥 Acerca de</h3>
+        <p class="text-sm text-purple-300 leading-relaxed">
+          Farmacia Salud Plus es una empresa dedicada a brindar productos de calidad para el bienestar y salud de toda tu familia, con atención cercana y tecnología moderna.
+        </p>
+      </div>
+
+      <!-- Contacto -->
+      <div class="space-y-4">
+        <h3 class="text-2xl font-bold">📞 Contacto</h3>
+        <p>Tel: +57 300 123 4567</p>
+        <p>Email: contacto@farmaciasaludplus.com</p>
       </div>
 
       <!-- Redes Sociales -->
-      <div>
-        <h3 class="text-xl font-bold">🌐 Síguenos</h3>
-        <div class="flex justify-center space-x-6 mt-3">
-          <a href="#" class="text-purple-400 hover:text-white transition text-3xl">
-            <i class="fab fa-facebook"></i>
+      <div class="space-y-4">
+        <h3 class="text-2xl font-bold">🌐 Síguenos</h3>
+        <div class="flex justify-start space-x-6">
+          <a href="#" aria-label="Facebook" class="text-purple-400 hover:text-white transition-transform duration-300 transform hover:scale-110 text-3xl">
+            <i class="fab fa-facebook-f"></i>
           </a>
-          <a href="#" class="text-purple-400 hover:text-white transition text-3xl">
+          <a href="#" aria-label="Instagram" class="text-purple-400 hover:text-white transition-transform duration-300 transform hover:scale-110 text-3xl">
             <i class="fab fa-instagram"></i>
           </a>
-          <a href="#" class="text-purple-400 hover:text-white transition text-3xl">
+          <a href="#" aria-label="Twitter" class="text-purple-400 hover:text-white transition-transform duration-300 transform hover:scale-110 text-3xl">
             <i class="fab fa-twitter"></i>
           </a>
         </div>
@@ -187,18 +198,21 @@
     </div>
 
     <!-- Línea Divisoria -->
-    <div class="border-t border-gray-400/50 mt-8"></div>
+    <div class="border-t border-gray-500 w-full"></div>
 
     <!-- Segunda Fila -->
-    <div class="mt-6 flex flex-col md:flex-row justify-center gap-8 text-purple-400">
-      <a href="#" class="hover:text-white transition">Términos y Condiciones</a>
-      <a href="#" class="hover:text-white transition">Política de Privacidad</a>
+    <div class="flex flex-col md:flex-row justify-center gap-6 text-base">
+      <a href="#" class="hover:text-white transition-colors duration-300">Términos y Condiciones</a>
+      <a href="#" class="hover:text-white transition-colors duration-300">Política de Privacidad</a>
     </div>
 
-    <p class="text-purple-400 mt-8">&copy; 2025 Farmacia Salud Plus. Todos los derechos reservados.</p>
-    
+    <!-- Copyright -->
+    <p class="text-sm text-purple-400 mt-4">&copy; 2025 Farmacia Salud Plus. Todos los derechos reservados.</p>
+
   </footer>
 </div>
+
+
 
 
     <script>
